@@ -1,4 +1,4 @@
-package potrawa.components.standalone;
+package potrawa.components.standalone.login;
 
 import potrawa.application.Application;
 
@@ -24,13 +24,10 @@ public class LoginDialog extends JDialog {
     setContentPane(contentPane);
     pack();
     setLocationRelativeTo(null);
+    setResizable(false);
     getRootPane().setDefaultButton(buttonLogin);
 
-    buttonLogin.addActionListener(new ActionListener() {
-      public void actionPerformed(ActionEvent e) {
-        onLogin();
-      }
-    });
+    buttonLogin.addActionListener(e -> onLogin());
 
     // call onCancel() when cross is clicked
     setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
@@ -41,11 +38,9 @@ public class LoginDialog extends JDialog {
     });
 
     // call onCancel() on ESCAPE
-    contentPane.registerKeyboardAction(new ActionListener() {
-      public void actionPerformed(ActionEvent e) {
-        onCancel();
-      }
-    }, KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
+    contentPane.registerKeyboardAction(e -> onCancel(),
+        KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0),
+        JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
   }
 
   private void onLogin() {
