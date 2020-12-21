@@ -1,4 +1,4 @@
-package potrawa.components;
+package potrawa.components.standalone;
 
 import potrawa.application.Application;
 

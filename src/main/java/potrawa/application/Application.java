@@ -1,8 +1,9 @@
 package potrawa.application;
 
-import potrawa.components.LoginDialog;
+import potrawa.components.standalone.LoginDialog;
 
 import javax.swing.*;
+import java.awt.*;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -23,7 +24,9 @@ public class Application {
   }
 
   public static void main(String args[]) {
-    Application app = new Application();
+    EventQueue.invokeLater(() -> {
+      Application app = new Application();
+    });
   }
 
   private Boolean loginCallback(String login, String password) {
@@ -34,8 +37,7 @@ public class Application {
     try {
       conn_ = DriverManager.getConnection(connectionString_,
           connectionProps);
-      JOptionPane.showMessageDialog(loginDialog_, "Połączono z bazą danych",
-          "PotrawaPL wita", JOptionPane.INFORMATION_MESSAGE);
+      EventQueue.invokeLater(this::afterLogin);
       return true;
     } catch (SQLException ex) {
       String msg;
@@ -54,5 +56,9 @@ public class Application {
           msg, "Błąd", JOptionPane.ERROR_MESSAGE);
       return false;
     }
+  }
+
+  private void afterLogin() {
+    System.out.println("XD");
   }
 }
