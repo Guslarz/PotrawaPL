@@ -1,18 +1,9 @@
 package potrawa.components.frames.new_user;
 
-import potrawa.application.Application;
-import potrawa.error.DefaultSqlHandler;
-
 import javax.swing.*;
 import java.awt.event.*;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
 
 public class NewClientFrame extends JFrame {
-  private final JFrame parentFrame_;
-  private final Connection conn_;
-  private final Runnable callback_;
   private JPanel contentPane;
   private JButton buttonSubmit;
   private JButton buttonCancel;
@@ -20,10 +11,13 @@ public class NewClientFrame extends JFrame {
   private JTextField textField2;
   private JTextField textField3;
 
-  public NewClientFrame(JFrame parentFrame, Connection conn, Runnable callback) {
+  private final JFrame parentFrame_;
+  private final NewUserController controller_;
+
+  public NewClientFrame(JFrame parentFrame, NewUserController controller) {
     parentFrame_ = parentFrame;
-    conn_ = conn;
-    callback_ = callback;
+    controller_ = controller;
+
     setContentPane(contentPane);
     pack();
     setResizable(false);
@@ -34,7 +28,6 @@ public class NewClientFrame extends JFrame {
 
     buttonCancel.addActionListener(e -> onCancel());
 
-    // call onCancel() when cross is clicked
     setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
     addWindowListener(new WindowAdapter() {
       public void windowClosing(WindowEvent e) {
@@ -42,38 +35,23 @@ public class NewClientFrame extends JFrame {
       }
     });
 
-    // call onCancel() on ESCAPE
     contentPane.registerKeyboardAction(e -> onCancel(),
         KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0),
         JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
   }
 
   private void onSubmit() {
-    try {
-      PreparedStatement preparedStatement = conn_.prepareStatement(
-          "BEGIN " +
-              "?.Wspolne.Wstaw_Klienta(?, ?, ?);" +
-              "?.Autoryzacja.Klient;" +
-              "END;"
-      );
-      preparedStatement.setString(1, Application.schema);
-      preparedStatement.setString(2, textField1.getText());
-      preparedStatement.setString(3, textField2.getText());
-      preparedStatement.setString(4, textField3.getText());
-      preparedStatement.setString(5, Application.schema);
-      preparedStatement.execute();
-      preparedStatement.close();
+    String name = textField1.getText();
+    String surname = textField2.getText();
+    String defaultAddress = textField3.getText();
 
+    if (controller_.addClient(name, surname, defaultAddress)) {
       parentFrame_.dispose();
       dispose();
-      callback_.run();
-    } catch (SQLException ex) {
-      DefaultSqlHandler.handle(ex);
     }
   }
 
   private void onCancel() {
-    // add your code here if necessary
     dispose();
     parentFrame_.setVisible(true);
   }
