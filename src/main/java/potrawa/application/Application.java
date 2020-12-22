@@ -21,10 +21,8 @@ public class Application {
     loginDialog.setVisible(true);
   }
 
-  public static void main(String args[]) {
-    SwingUtilities.invokeLater(() -> {
-      Application app = new Application();
-    });
+  public static void main(String[] args) {
+    SwingUtilities.invokeLater(Application::new);
   }
 
   private Boolean loginCallback(String login, String password) {
@@ -58,7 +56,9 @@ public class Application {
         JFrame newUserDialog = new NewUserFrame(conn_, this::successfulLoginCallback);
         newUserDialog.setVisible(true);
       } else {
-        System.out.println(userType);
+        statement = conn_.createStatement();
+        statement.execute("DELETE FROM UZYTKOWNICY WHERE IDENTYFIKATOR=USER;");
+        statement.close();
       }
 
     } catch (SQLException ex) {

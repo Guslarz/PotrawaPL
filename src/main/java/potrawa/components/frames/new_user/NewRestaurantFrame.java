@@ -51,12 +51,14 @@ public class NewRestaurantFrame extends JFrame {
     try {
       PreparedStatement preparedStatement = conn_.prepareStatement(
           "BEGIN " +
-              String.format("%s.Wspolne.Wstaw_Restauracje(?, ?);", Application.schema) +
-              String.format("%s.Autoryzacja.Restauracja;", Application.schema) +
+              "?.Wspolne.Wstaw_Restauracje(?, ?);" +
+              "?.Autoryzacja.Restauracja;" +
               "END;"
       );
-      preparedStatement.setString(1, textField1.getText());
-      preparedStatement.setString(2, textArea.getText());
+      preparedStatement.setString(2, textField1.getText());
+      preparedStatement.setString(3, textArea.getText());
+      preparedStatement.setString(4, Application.schema);
+      preparedStatement.setString(1, Application.schema);
       preparedStatement.execute();
       preparedStatement.close();
 

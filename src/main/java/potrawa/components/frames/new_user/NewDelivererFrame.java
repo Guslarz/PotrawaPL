@@ -51,12 +51,14 @@ public class NewDelivererFrame extends JFrame {
     try {
       PreparedStatement preparedStatement = conn_.prepareStatement(
           "BEGIN " +
-              String.format("%s.Wspolne.Wstaw_Dostawce(?, ?);", Application.schema) +
-              String.format("%s.Autoryzacja.Dostawca;", Application.schema) +
+              "?.Wspolne.Wstaw_Dostawce(?, ?);" +
+              "?.Autoryzacja.Dostawca;" +
               "END;"
       );
-      preparedStatement.setString(1, textField1.getText());
-      preparedStatement.setString(2, textField2.getText());
+      preparedStatement.setString(1, Application.schema);
+      preparedStatement.setString(2, textField1.getText());
+      preparedStatement.setString(3, textField2.getText());
+      preparedStatement.setString(4, Application.schema);
       preparedStatement.execute();
       preparedStatement.close();
 

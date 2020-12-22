@@ -52,13 +52,15 @@ public class NewClientFrame extends JFrame {
     try {
       PreparedStatement preparedStatement = conn_.prepareStatement(
           "BEGIN " +
-              String.format("%s.Wspolne.Wstaw_Klienta(?, ?, ?);", Application.schema) +
-              String.format("%s.Autoryzacja.Klient;", Application.schema) +
+              "?.Wspolne.Wstaw_Klienta(?, ?, ?);" +
+              "?.Autoryzacja.Klient;" +
               "END;"
       );
-      preparedStatement.setString(1, textField1.getText());
-      preparedStatement.setString(2, textField2.getText());
-      preparedStatement.setString(3, textField3.getText());
+      preparedStatement.setString(1, Application.schema);
+      preparedStatement.setString(2, textField1.getText());
+      preparedStatement.setString(3, textField2.getText());
+      preparedStatement.setString(4, textField3.getText());
+      preparedStatement.setString(5, Application.schema);
       preparedStatement.execute();
       preparedStatement.close();
 
