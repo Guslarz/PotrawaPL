@@ -1,30 +1,23 @@
-package potrawa.components.standalone.login;
-
-import potrawa.application.Application;
+package potrawa.components.frames.login;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.sql.SQLException;
-import java.util.function.BiConsumer;
 import java.util.function.BiFunction;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
-public class LoginDialog extends JDialog {
+public class LoginFrame extends JFrame {
   private JPanel contentPane;
   private JButton buttonLogin;
   private JTextField textField1;
   private JPasswordField passwordField1;
-  private BiFunction<String, String, Boolean> callback_;
+  private final BiFunction<String, String, Boolean> callback_;
 
-  public LoginDialog(BiFunction<String, String, Boolean> callback) {
-    super((Dialog)null);
+  public LoginFrame(BiFunction<String, String, Boolean> callback) {
     callback_ = callback;
     setContentPane(contentPane);
     pack();
-    setLocationRelativeTo(null);
     setResizable(false);
+    setLocationRelativeTo(null);
     getRootPane().setDefaultButton(buttonLogin);
 
     buttonLogin.addActionListener(e -> onLogin());

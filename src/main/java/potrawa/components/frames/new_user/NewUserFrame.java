@@ -1,11 +1,11 @@
-package potrawa.components.standalone.new_user;
+package potrawa.components.frames.new_user;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.sql.Connection;
 
-public class NewUserDialog extends JDialog {
+public class NewUserFrame extends JFrame {
   private final Connection conn_;
   private final Runnable callback_;
   private JPanel contentPane;
@@ -13,8 +13,7 @@ public class NewUserDialog extends JDialog {
   private JButton buttonDeliverer;
   private JButton buttonRestaurant;
 
-  public NewUserDialog(Connection conn, Runnable callback) {
-    super((Dialog)null);
+  public NewUserFrame(Connection conn, Runnable callback) {
     conn_ = conn;
     callback_ = callback;
     setContentPane(contentPane);
@@ -42,16 +41,20 @@ public class NewUserDialog extends JDialog {
 
   private void onClient() {
     setVisible(false);
-    JDialog newClientDialog = new NewClientDialog(this, conn_, callback_);
-    newClientDialog.setVisible(true);
+    JFrame newClientFrame = new NewClientFrame(this, conn_, callback_);
+    newClientFrame.setVisible(true);
   }
 
   private void onDeliverer() {
-    dispose();
+    setVisible(false);
+    JFrame newDelivererFrame = new NewDelivererFrame(this, conn_, callback_);
+    newDelivererFrame.setVisible(true);
   }
 
   private void onRestaurant() {
-    dispose();
+    setVisible(false);
+    JFrame newRestaurantFrame = new NewRestaurantFrame(this, conn_, callback_);
+    newRestaurantFrame.setVisible(true);
   }
 
   private void onCancel() {

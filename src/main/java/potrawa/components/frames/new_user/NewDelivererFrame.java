@@ -1,18 +1,16 @@
-package potrawa.components.standalone.new_user;
+package potrawa.components.frames.new_user;
 
 import potrawa.application.Application;
 import potrawa.error.DefaultSqlHandler;
 
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.*;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.sql.Statement;
 
-public class NewClientDialog extends JDialog {
-  private final JDialog parentDialog_;
+public class NewDelivererFrame extends JFrame {
+  private final JFrame parentFrame_;
   private final Connection conn_;
   private final Runnable callback_;
   private JPanel contentPane;
@@ -20,11 +18,9 @@ public class NewClientDialog extends JDialog {
   private JButton buttonCancel;
   private JTextField textField1;
   private JTextField textField2;
-  private JTextField textField3;
 
-  public NewClientDialog(JDialog parentDialog, Connection conn, Runnable callback) {
-    super((Dialog)null);
-    parentDialog_ = parentDialog;
+  public NewDelivererFrame(JFrame parentFrame, Connection conn, Runnable callback) {
+    parentFrame_ = parentFrame;
     conn_ = conn;
     callback_ = callback;
     setContentPane(contentPane);
@@ -55,17 +51,16 @@ public class NewClientDialog extends JDialog {
     try {
       PreparedStatement preparedStatement = conn_.prepareStatement(
           "BEGIN " +
-              String.format("%s.Wspolne.Wstaw_Klienta(?, ?, ?);", Application.schema) +
-              String.format("%s.Autoryzacja.Klient;", Application.schema) +
+              String.format("%s.Wspolne.Wstaw_Dostawce(?, ?);", Application.schema) +
+              String.format("%s.Autoryzacja.Dostawca;", Application.schema) +
               "END;"
       );
       preparedStatement.setString(1, textField1.getText());
       preparedStatement.setString(2, textField2.getText());
-      preparedStatement.setString(3, textField3.getText());
       preparedStatement.execute();
       preparedStatement.close();
 
-      parentDialog_.dispose();
+      parentFrame_.dispose();
       dispose();
       callback_.run();
     } catch (SQLException ex) {
@@ -76,6 +71,6 @@ public class NewClientDialog extends JDialog {
   private void onCancel() {
     // add your code here if necessary
     dispose();
-    parentDialog_.setVisible(true);
+    parentFrame_.setVisible(true);
   }
 }

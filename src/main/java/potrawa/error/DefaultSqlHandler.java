@@ -13,6 +13,9 @@ public class DefaultSqlHandler {
       case 1017:
         msg = "Błędny login lub hasło";
         break;
+      case 1400:
+        msg = "Wymagane pole nie może być puste";
+        break;
       case 17002:
         msg = "Brak połączenia";
         break;

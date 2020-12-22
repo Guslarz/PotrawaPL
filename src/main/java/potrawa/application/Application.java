@@ -1,7 +1,7 @@
 package potrawa.application;
 
-import potrawa.components.standalone.login.LoginDialog;
-import potrawa.components.standalone.new_user.NewUserDialog;
+import potrawa.components.frames.login.LoginFrame;
+import potrawa.components.frames.new_user.NewUserFrame;
 import potrawa.error.DefaultSqlHandler;
 
 import javax.swing.*;
@@ -17,7 +17,7 @@ public class Application {
   public static final String schema = "inf141240";
 
   public Application() {
-    JDialog loginDialog = new LoginDialog(this::loginCallback);
+    JFrame loginDialog = new LoginFrame(this::loginCallback);
     loginDialog.setVisible(true);
   }
 
@@ -55,7 +55,7 @@ public class Application {
       statement.close();
 
       if (userType == null) {
-        JDialog newUserDialog = new NewUserDialog(conn_, this::successfulLoginCallback);
+        JFrame newUserDialog = new NewUserFrame(conn_, this::successfulLoginCallback);
         newUserDialog.setVisible(true);
       } else {
         System.out.println(userType);
