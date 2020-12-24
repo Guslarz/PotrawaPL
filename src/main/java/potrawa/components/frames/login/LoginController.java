@@ -1,6 +1,7 @@
 package potrawa.components.frames.login;
 
 import potrawa.application.Application;
+import potrawa.components.frames.deliverer.DelivererMainFrame;
 import potrawa.components.frames.new_user.NewUserFrame;
 import potrawa.error.DefaultSqlHandler;
 
@@ -48,9 +49,19 @@ public class LoginController {
           newUserDialog.setVisible(true);
         });
       } else {
-        statement = connection_.createStatement();
-        statement.execute("DELETE FROM UZYTKOWNICY WHERE IDENTYFIKATOR=USER");
-        statement.close();
+        switch (userType) {
+          case "DOSTAWCA":
+            SwingUtilities.invokeLater(() -> {
+              JFrame nextFrame = new DelivererMainFrame(connection_);
+              nextFrame.setVisible(true);
+            });
+            break;
+          default:  // Remove later
+            statement = connection_.createStatement();
+            statement.execute("DELETE FROM inf141240.UZYTKOWNICY WHERE IDENTYFIKATOR=USER");
+            statement.close();
+            break;
+        }
       }
     } catch (SQLException ex) {
       DefaultSqlHandler.handle(ex);

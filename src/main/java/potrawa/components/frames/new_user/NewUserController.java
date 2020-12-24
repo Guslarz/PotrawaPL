@@ -1,8 +1,10 @@
 package potrawa.components.frames.new_user;
 
 import potrawa.application.Application;
+import potrawa.components.frames.deliverer.DelivererMainFrame;
 import potrawa.error.DefaultSqlHandler;
 
+import javax.swing.*;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -56,7 +58,10 @@ public class NewUserController {
       preparedStatement.execute();
       preparedStatement.close();
 
-      // initial deliverer screen
+      SwingUtilities.invokeLater(() -> {
+        JFrame nextFrame = new DelivererMainFrame(connection_);
+        nextFrame.setVisible(true);
+      });
       return true;
     } catch (SQLException ex) {
       DefaultSqlHandler.handle(ex);
@@ -84,6 +89,14 @@ public class NewUserController {
     } catch (SQLException ex) {
       DefaultSqlHandler.handle(ex);
       return false;
+    }
+  }
+
+  public void close() {
+    try {
+      connection_.close();
+    } catch (SQLException ex) {
+      DefaultSqlHandler.handle(ex);
     }
   }
 }

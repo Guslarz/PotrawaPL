@@ -1,5 +1,7 @@
 package potrawa.components.frames.new_user;
 
+import potrawa.components.frames.deliverer.DelivererMainFrame;
+
 import javax.swing.*;
 import java.awt.event.*;
 
@@ -14,6 +16,8 @@ public class NewDelivererFrame extends JFrame {
   private JTextField textField2;
 
   public NewDelivererFrame(JFrame parentFrame, NewUserController controller) {
+    super("Nowy dostawca");
+
     parentFrame_ = parentFrame;
     controller_ = controller;
 

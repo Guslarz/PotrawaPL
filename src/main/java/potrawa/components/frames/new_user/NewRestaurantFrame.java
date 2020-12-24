@@ -14,6 +14,8 @@ public class NewRestaurantFrame extends JFrame {
   private JTextArea textArea;
 
   public NewRestaurantFrame(JFrame parentFrame, NewUserController controller) {
+    super("Nowa restauracja");
+
     parentFrame_ = parentFrame;
     controller_ = controller;
 

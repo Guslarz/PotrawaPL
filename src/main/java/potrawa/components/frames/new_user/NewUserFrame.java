@@ -13,6 +13,8 @@ public class NewUserFrame extends JFrame {
   private JButton buttonRestaurant;
 
   public NewUserFrame(Connection connection) {
+    super("Nowy użytkownik");
+
     controller_ = new NewUserController(connection);
 
     setContentPane(contentPane);
@@ -55,6 +57,7 @@ public class NewUserFrame extends JFrame {
   }
 
   private void onCancel() {
+    controller_.close();
     dispose();
   }
 }
