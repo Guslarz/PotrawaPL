@@ -1,7 +1,7 @@
 package potrawa.components.frames.deliverer;
 
 import potrawa.application.Application;
-import potrawa.data.deliverer.DelivererOrder;
+import potrawa.data.Order;
 import potrawa.error.DefaultSqlHandler;
 
 import java.sql.*;
@@ -16,44 +16,17 @@ public class DelivererOrdersListController {
     connection_ = connection;
   }
 
-  public List<DelivererOrder> getOrders() {
+  public List<Order> getOrders() {
     try {
-      String query = String.format(
-          "SELECT " +
-              "z.id_zamowienia AS id, " +
-              "r.nazwa AS restaurant_name, " +
-              "z.adres AS address, " +
-              "z.nazwa_metody_platnosci AS payment_method, " +
-              "(" +
-              "    SELECT SUM(d.cena * dwz.licznosc) " +
-              "    FROM %s.dania d " +
-              "    JOIN %s.dania_w_zamowieniu dwz " +
-              "    ON d.IDENTYFIKATOR_RESTAURACJI = dwz.IDENTYFIKATOR_RESTAURACJI " +
-              "       AND d.NAZWA = dwz.NAZWA_DANIA " +
-              "    WHERE dwz.id_zamowienia = z.id_zamowienia " +
-              ") AS price, " +
-              "z.dodatkowe_informacje AS additional_information " +
-              "FROM %s.zamowienia z " +
-              "JOIN %s.restauracje r ON z.identyfikator_restauracji = r.identyfikator " +
-              "WHERE z.identyfikator_dostawcy = USER " +
-              "AND z.status = 'DOSTAWA'",
-          Application.schema, Application.schema, Application.schema, Application.schema
-      );
-
+      String query = Order.query +
+          "WHERE z.identyfikator_dostawcy = USER " +
+          "AND z.status = 'DOSTAWA'";
       Statement statement = connection_.createStatement();
       ResultSet resultSet = statement.executeQuery(query);
 
-      List<DelivererOrder> orders = new ArrayList<>();
+      List<Order> orders = new ArrayList<>();
       while (resultSet.next()) {
-        DelivererOrder order = new DelivererOrder();
-        order.setId(resultSet.getInt("id"));
-        order.setRestaurantName(resultSet.getString("restaurant_name"));
-        order.setAddress(resultSet.getString("address"));
-        order.setPaymentMethod(resultSet.getString("payment_method"));
-        order.setPrice(resultSet.getDouble("price"));
-        order.setAdditionalInformation(resultSet.getString("additional_information"));
-
-        orders.add(order);
+        orders.add(Order.fromResultSet(resultSet));
       }
 
       resultSet.close();
