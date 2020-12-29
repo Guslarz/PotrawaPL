@@ -1,5 +1,7 @@
 package potrawa.components.frames.new_user;
 
+import potrawa.logic.new_user.NewUserController;
+
 import javax.swing.*;
 import java.awt.event.*;
 import java.sql.Connection;

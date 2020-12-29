@@ -1,5 +1,6 @@
-package potrawa.components.frames.deliverer;
+package potrawa.components.frames.client;
 
+import potrawa.components.frames.deliverer.DelivererUserDataFrame;
 import potrawa.error.DefaultSqlHandler;
 
 import javax.swing.*;
@@ -9,15 +10,17 @@ import java.awt.event.WindowEvent;
 import java.sql.Connection;
 import java.sql.SQLException;
 
-public class DelivererMainFrame extends JFrame {
+public class ClientMainFrame extends JFrame {
   private JPanel contentPane;
   private JButton button1;
   private JButton button2;
+  private JButton button3;
+  private JButton button4;
 
   private final Connection connection_;
 
-  public DelivererMainFrame(Connection connection) {
-    super("Dostawca");
+  public ClientMainFrame(Connection connection) {
+    super("Klient");
 
     connection_ = connection;
 
@@ -25,11 +28,10 @@ public class DelivererMainFrame extends JFrame {
     pack();
     setResizable(false);
     setLocationRelativeTo(null);
-    getRootPane().setDefaultButton(button1);
 
-    button1.addActionListener(e -> onOrdersList());
+    button3.addActionListener(e -> onOpinionsList());
 
-    button2.addActionListener(e -> onUserData());
+    button4.addActionListener(e -> onUserData());
 
     setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
     addWindowListener(new WindowAdapter() {
@@ -43,9 +45,9 @@ public class DelivererMainFrame extends JFrame {
         JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
   }
 
-  private void onOrdersList() {
+  private void onOpinionsList() {
     SwingUtilities.invokeLater(() -> {
-      JFrame nextFrame = new DelivererOrdersListFrame(this, connection_);
+      JFrame nextFrame = new ClientOpinionsListFrame(this, connection_);
       nextFrame.setVisible(true);
     });
     setVisible(false);
@@ -53,7 +55,7 @@ public class DelivererMainFrame extends JFrame {
 
   private void onUserData() {
     SwingUtilities.invokeLater(() -> {
-      JFrame nextFrame = new DelivererUserDataFrame(this, connection_);
+      JFrame nextFrame = new ClientUserDataFrame(this, connection_);
       nextFrame.setVisible(true);
     });
     setVisible(false);

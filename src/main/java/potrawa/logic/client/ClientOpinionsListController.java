@@ -1,54 +1,52 @@
-package potrawa.components.frames.deliverer;
+package potrawa.logic.client;
 
 import potrawa.application.Application;
-import potrawa.data.Order;
+import potrawa.data.Opinion;
 import potrawa.error.DefaultSqlHandler;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DelivererOrdersListController {
+public class ClientOpinionsListController {
 
   private final Connection connection_;
 
-  public DelivererOrdersListController(Connection connection) {
+  public ClientOpinionsListController(Connection connection) {
     connection_ = connection;
   }
 
-  public List<Order> getOrders() {
+  public List<Opinion> getOpinions() {
     try {
-      String query = Order.query +
-          "WHERE z.identyfikator_dostawcy = USER " +
-          "AND z.status = 'DOSTAWA'";
+      String query = Opinion.query +
+          "WHERE identyfikator_klienta = USER";
       Statement statement = connection_.createStatement();
       ResultSet resultSet = statement.executeQuery(query);
 
-      List<Order> orders = new ArrayList<>();
+      List<Opinion> opinions = new ArrayList<>();
       while (resultSet.next()) {
-        orders.add(Order.fromResultSet(resultSet));
+        opinions.add(Opinion.fromResultSet(resultSet));
       }
 
-      resultSet.close();
-      statement.close();
-      return orders;
+      return opinions;
     } catch (SQLException ex) {
       DefaultSqlHandler.handle(ex);
       return null;
     }
   }
 
-  public boolean confirmDelivery(int id) {
+  public boolean deleteOpinion(String restaurantId) {
     try {
       String query = String.format(
           "BEGIN " +
-              "%s.Dostawca.Zakoncz_Zamowienie(?);" +
-              "END;", Application.schema
+              "%s.Klient.Usun_Opinie(?); " +
+              "END; ",
+          Application.schema
       );
       PreparedStatement statement = connection_.prepareStatement(query);
-      statement.setInt(1, id);
+      statement.setString(1, restaurantId);
       statement.execute();
-      statement.close();
+
       return true;
     } catch (SQLException ex) {
       DefaultSqlHandler.handle(ex);

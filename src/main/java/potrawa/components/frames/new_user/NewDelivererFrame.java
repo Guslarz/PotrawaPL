@@ -1,6 +1,6 @@
 package potrawa.components.frames.new_user;
 
-import potrawa.components.frames.deliverer.DelivererMainFrame;
+import potrawa.logic.new_user.NewUserController;
 
 import javax.swing.*;
 import java.awt.event.*;

@@ -1,5 +1,7 @@
 package potrawa.components.frames.login;
 
+import potrawa.logic.login.LoginController;
+
 import javax.swing.*;
 import java.awt.event.*;
 

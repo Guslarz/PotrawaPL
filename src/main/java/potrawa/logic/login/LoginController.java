@@ -1,6 +1,7 @@
-package potrawa.components.frames.login;
+package potrawa.logic.login;
 
 import potrawa.application.Application;
+import potrawa.components.frames.client.ClientMainFrame;
 import potrawa.components.frames.deliverer.DelivererMainFrame;
 import potrawa.components.frames.new_user.NewUserFrame;
 import potrawa.error.DefaultSqlHandler;
@@ -50,6 +51,12 @@ public class LoginController {
         });
       } else {
         switch (userType) {
+          case "KLIENT":
+            SwingUtilities.invokeLater(() -> {
+              JFrame nextFrame = new ClientMainFrame(connection_);
+              nextFrame.setVisible(true);
+            });
+            break;
           case "DOSTAWCA":
             SwingUtilities.invokeLater(() -> {
               JFrame nextFrame = new DelivererMainFrame(connection_);

@@ -1,6 +1,7 @@
-package potrawa.components.frames.new_user;
+package potrawa.logic.new_user;
 
 import potrawa.application.Application;
+import potrawa.components.frames.client.ClientMainFrame;
 import potrawa.components.frames.deliverer.DelivererMainFrame;
 import potrawa.error.DefaultSqlHandler;
 
@@ -33,9 +34,10 @@ public class NewUserController {
       preparedStatement.execute();
       preparedStatement.close();
 
-      // TODO client initial screen
-      // SwingUtilities.invokeLater();
-
+      SwingUtilities.invokeLater(() -> {
+        JFrame nextFrame = new ClientMainFrame(connection_);
+        nextFrame.setVisible(true);
+      });
       return true;
     } catch (SQLException ex) {
       DefaultSqlHandler.handle(ex);

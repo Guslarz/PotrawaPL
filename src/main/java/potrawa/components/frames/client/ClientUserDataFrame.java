@@ -1,29 +1,29 @@
-package potrawa.components.frames.deliverer;
+package potrawa.components.frames.client;
 
-import potrawa.data.Deliverer;
-import potrawa.logic.deliverer.DelivererUserDataController;
+import potrawa.data.Client;
+import potrawa.logic.client.ClientUserDataController;
 
 import javax.swing.*;
 import java.awt.event.*;
 import java.sql.Connection;
 
-public class DelivererUserDataFrame extends JFrame {
+public class ClientUserDataFrame extends JFrame {
   private JPanel contentPane;
   private JButton buttonOK;
   private JButton buttonCancel;
-  private JCheckBox checkBoxStatus;
   private JButton buttonDeleteAccount;
+  private JTextField textField1;
   private JLabel labelName;
   private JLabel labelSurname;
 
   private final JFrame parentFrame_;
-  private final DelivererUserDataController controller_;
+  private final ClientUserDataController controller_;
 
-  public DelivererUserDataFrame(JFrame parentFrame, Connection connection) {
-    super("Dane dostawcy");
+  public ClientUserDataFrame(JFrame parentFrame, Connection connection) {
+    super("Dane klienta");
 
     parentFrame_ = parentFrame;
-    controller_ = new DelivererUserDataController(connection);
+    controller_ = new ClientUserDataController(connection);
 
     setContentPane(contentPane);
     pack();
@@ -31,10 +31,10 @@ public class DelivererUserDataFrame extends JFrame {
     setLocationRelativeTo(null);
     getRootPane().setDefaultButton(buttonCancel);
 
-    Deliverer user = controller_.getUserData();
-    labelName.setText(user.getName());
-    labelSurname.setText(user.getSurname());
-    checkBoxStatus.setSelected(user.getStatus());
+    Client client = controller_.getUserData();
+    labelName.setText(client.getName());
+    labelSurname.setText(client.getSurname());
+    textField1.setText(client.getDefaultAddress());
 
     buttonOK.addActionListener(e -> onOK());
 
@@ -55,9 +55,9 @@ public class DelivererUserDataFrame extends JFrame {
   }
 
   private void onOK() {
-    boolean status = checkBoxStatus.isSelected();
+    String defaultAddress = textField1.getText();
 
-    if (controller_.updateDelivererStatus(status)) {
+    if (controller_.updateDefaultAddress(defaultAddress)) {
       parentFrame_.setVisible(true);
       dispose();
     }
