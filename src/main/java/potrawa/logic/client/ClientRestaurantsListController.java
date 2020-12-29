@@ -26,6 +26,8 @@ public class ClientRestaurantsListController {
       while (resultSet.next()) {
         restaurants.add(Restaurant.fromResultSet(resultSet));
       }
+      resultSet.close();
+      statement.close();
 
       return restaurants;
     } catch (SQLException ex) {
@@ -49,6 +51,8 @@ public class ClientRestaurantsListController {
       while (resultSet.next()) {
         restaurants.add(Restaurant.fromResultSet(resultSet));
       }
+      resultSet.close();
+      statement.close();
 
       return restaurants;
     } catch (SQLException ex) {
@@ -65,7 +69,11 @@ public class ClientRestaurantsListController {
       statement.setString(1, restaurantId);
       ResultSet resultSet = statement.executeQuery();
 
-      return resultSet.next() ? Opinion.fromResultSet(resultSet) : null;
+      Opinion opinion = resultSet.next() ? Opinion.fromResultSet(resultSet) : null;
+      resultSet.close();
+      statement.close();
+
+      return opinion;
     } catch (SQLException ex) {
       DefaultSqlHandler.handle(ex);
       return null;

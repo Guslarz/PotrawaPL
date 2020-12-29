@@ -27,6 +27,8 @@ public class ClientOpinionsListController {
       while (resultSet.next()) {
         opinions.add(Opinion.fromResultSet(resultSet));
       }
+      resultSet.close();
+      statement.close();
 
       return opinions;
     } catch (SQLException ex) {
@@ -46,6 +48,7 @@ public class ClientOpinionsListController {
       PreparedStatement statement = connection_.prepareStatement(query);
       statement.setString(1, restaurantId);
       statement.execute();
+      statement.close();
 
       return true;
     } catch (SQLException ex) {

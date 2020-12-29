@@ -28,6 +28,7 @@ public class ClientOpinionController {
       statement.setInt(2, rating);
       statement.setString(3, comment);
       statement.execute();
+      statement.close();
 
       return true;
     } catch (SQLException ex) {
@@ -49,6 +50,7 @@ public class ClientOpinionController {
       statement.setInt(2, rating);
       statement.setString(3, comment);
       statement.execute();
+      statement.close();
 
       return true;
     } catch (SQLException ex) {

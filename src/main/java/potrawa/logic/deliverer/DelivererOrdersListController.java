@@ -21,6 +21,7 @@ public class DelivererOrdersListController {
       String query = Order.query +
           "WHERE z.identyfikator_dostawcy = USER " +
           "AND z.status = 'DOSTAWA'";
+
       Statement statement = connection_.createStatement();
       ResultSet resultSet = statement.executeQuery(query);
 

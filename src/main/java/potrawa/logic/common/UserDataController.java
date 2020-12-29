@@ -7,11 +7,11 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class UserDataContoller {
+public class UserDataController {
 
   protected Connection connection_;
 
-  public UserDataContoller(Connection connection) {
+  public UserDataController(Connection connection) {
     connection_ = connection;
   }
 

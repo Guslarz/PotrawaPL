@@ -14,10 +14,10 @@ public class NewUserFrame extends JFrame {
   private JButton buttonDeliverer;
   private JButton buttonRestaurant;
 
-  public NewUserFrame(Connection connection) {
+  public NewUserFrame(Connection connection, String username) {
     super("Nowy użytkownik");
 
-    controller_ = new NewUserController(connection);
+    controller_ = new NewUserController(connection, username);
 
     setContentPane(contentPane);
     pack();

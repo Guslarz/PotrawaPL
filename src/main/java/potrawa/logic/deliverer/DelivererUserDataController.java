@@ -1,13 +1,13 @@
 package potrawa.logic.deliverer;
 
 import potrawa.application.Application;
-import potrawa.logic.common.UserDataContoller;
+import potrawa.logic.common.UserDataController;
 import potrawa.data.Deliverer;
 import potrawa.error.DefaultSqlHandler;
 
 import java.sql.*;
 
-public class DelivererUserDataController extends UserDataContoller {
+public class DelivererUserDataController extends UserDataController {
 
   public DelivererUserDataController(Connection connection) {
     super(connection);

@@ -22,8 +22,7 @@ public class Restaurant {
           "   FROM %s.opinie " +
           "   WHERE identyfikator_restauracji = r.identyfikator " +
           ") AS avg_rating " +
-          "FROM %s.restauracje r " +
-          "ON r.identyfikator = o.identyfikator_restauracji ",
+          "FROM %s.restauracje r ",
       Application.schema, Application.schema
   );
 
