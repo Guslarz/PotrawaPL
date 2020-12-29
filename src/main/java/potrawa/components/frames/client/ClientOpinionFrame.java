@@ -18,7 +18,6 @@ public class ClientOpinionFrame extends JFrame {
   private final JFrame parentFrame_;
   private final ClientOpinionController controller_;
   private String restaurantId_;
-  private Runnable callback_;
 
   private ClientOpinionFrame(JFrame parentFrame, Connection connection) {
     super("Opinia o restauracji");
@@ -27,9 +26,7 @@ public class ClientOpinionFrame extends JFrame {
     controller_ = new ClientOpinionController(connection);
 
     setContentPane(contentPane);
-    pack();
     setResizable(false);
-    setLocationRelativeTo(null);
     getRootPane().setDefaultButton(buttonOK);
 
     comboBox1.addItem(1);
@@ -67,8 +64,17 @@ public class ClientOpinionFrame extends JFrame {
     buttonOK.addActionListener(e -> onOKUpdate());
   }
 
-  public void setCallback(Runnable callback) {
-    callback_ = callback;
+  public ClientOpinionFrame(JFrame parentFrame, Connection connection, String restaurantId,
+                            String restaurantName) {
+    this(parentFrame, connection);
+    restaurantId_ = restaurantId;
+
+    labelRestaurantName.setText(restaurantName);
+
+    pack();
+    setLocationRelativeTo(null);
+
+    buttonOK.addActionListener(e -> onOKInsert());
   }
 
   private void onOKUpdate() {
@@ -76,16 +82,19 @@ public class ClientOpinionFrame extends JFrame {
     String comment = textArea1.getText();
 
     if (controller_.updateOpinion(restaurantId_, rating, comment)) {
-      if (callback_ != null) {
-        callback_.run();
-      }
       parentFrame_.setVisible(true);
       dispose();
     }
   }
 
   private void onOKInsert() {
-    dispose();
+    int rating = (int) comboBox1.getSelectedItem();
+    String comment = textArea1.getText();
+
+    if (controller_.insertOpinion(restaurantId_, rating, comment)) {
+      parentFrame_.setVisible(true);
+      dispose();
+    }
   }
 
   private void onCancel() {

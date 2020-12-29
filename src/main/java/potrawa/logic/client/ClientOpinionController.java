@@ -36,8 +36,6 @@ public class ClientOpinionController {
     }
   }
 
-
-
   public boolean insertOpinion(String restaurantId, int rating, String comment) {
     try {
       String query = String.format(

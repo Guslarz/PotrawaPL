@@ -1,9 +1,7 @@
 package potrawa.components.frames.client;
 
 import potrawa.components.elements.OpinionElement;
-import potrawa.components.elements.OrderElement;
 import potrawa.data.Opinion;
-import potrawa.data.Order;
 import potrawa.logic.client.ClientOpinionsListController;
 
 import javax.swing.*;
@@ -13,7 +11,6 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.sql.Connection;
 import java.util.List;
-import java.util.Optional;
 
 public class ClientOpinionsListFrame extends JFrame {
   private JPanel contentPane;
@@ -85,7 +82,6 @@ public class ClientOpinionsListFrame extends JFrame {
       buttonUpdate.addActionListener(e -> SwingUtilities.invokeLater(() -> {
         ClientOpinionFrame nextFrame =
             new ClientOpinionFrame(this, connection_, opinion);
-        nextFrame.setCallback(this::loadOpinions);
         setVisible(false);
         nextFrame.setVisible(true);
       }));
@@ -106,12 +102,21 @@ public class ClientOpinionsListFrame extends JFrame {
       listPanel.add(opinionElement);
     }
     JScrollPane scrollPane = new JScrollPane(listPanel);
-    scrollPane.setPreferredSize(new Dimension(500, 600));
+    scrollPane.setPreferredSize(new Dimension(500, 500));
     mainPanel.add(scrollPane);
   }
 
   private void onCancel() {
     parentFrame_.setVisible(true);
     dispose();
+  }
+
+  @Override
+  public void setVisible(boolean b) {
+    if (b) {
+      loadOpinions();
+    }
+
+    super.setVisible(b);
   }
 }

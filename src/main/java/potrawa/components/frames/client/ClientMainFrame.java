@@ -29,6 +29,10 @@ public class ClientMainFrame extends JFrame {
     setResizable(false);
     setLocationRelativeTo(null);
 
+    button1.addActionListener(e -> onRestaurantSearch());
+
+    button2.addActionListener(e -> onRestaurantsList());
+
     button3.addActionListener(e -> onOpinionsList());
 
     button4.addActionListener(e -> onUserData());
@@ -43,6 +47,24 @@ public class ClientMainFrame extends JFrame {
     contentPane.registerKeyboardAction(e -> onCancel(),
         KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0),
         JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
+  }
+
+  private void onRestaurantSearch() {
+    SwingUtilities.invokeLater(() -> {
+      JFrame nextFrame = new ClientRestaurantSearchFrame(
+          this, connection_);
+      nextFrame.setVisible(true);
+    });
+    setVisible(false);
+  }
+
+  private void onRestaurantsList() {
+    SwingUtilities.invokeLater(() -> {
+      JFrame nextFrame = new ClientRestaurantsListFrame(
+          this, connection_, null);
+      nextFrame.setVisible(true);
+    });
+    setVisible(false);
   }
 
   private void onOpinionsList() {
