@@ -1,6 +1,7 @@
 package potrawa.components.frames.client;
 
 import potrawa.data.Opinion;
+import potrawa.data.Restaurant;
 import potrawa.logic.client.ClientOpinionController;
 
 import javax.swing.*;
@@ -64,12 +65,11 @@ public class ClientOpinionFrame extends JFrame {
     buttonOK.addActionListener(e -> onOKUpdate());
   }
 
-  public ClientOpinionFrame(JFrame parentFrame, Connection connection, String restaurantId,
-                            String restaurantName) {
+  public ClientOpinionFrame(JFrame parentFrame, Connection connection, Restaurant restaurant) {
     this(parentFrame, connection);
-    restaurantId_ = restaurantId;
+    restaurantId_ = restaurant.getId();
 
-    labelRestaurantName.setText(restaurantName);
+    labelRestaurantName.setText(restaurant.getName());
 
     pack();
     setLocationRelativeTo(null);

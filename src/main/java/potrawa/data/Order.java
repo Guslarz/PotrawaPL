@@ -41,7 +41,7 @@ public class Order {
           "    WHERE dwz.id_zamowienia = z.id_zamowienia " +
           ") AS price, " +
           "(" +
-          "    SELECT LISTAGG(dwz.licznosc || 'x ' || dan.nazwa, '\n') " +
+          "    SELECT LISTAGG(dwz.licznosc || 'x ' || dan.nazwa, ', ') " +
           "       WITHIN GROUP (ORDER BY dan.nazwa)" +
           "    FROM %s.dania dan " +
           "    JOIN %s.dania_w_zamowieniu dwz " +
@@ -52,7 +52,7 @@ public class Order {
           "FROM %s.zamowienia z " +
           "JOIN %s.restauracje r ON z.identyfikator_restauracji = r.identyfikator " +
           "JOIN %s.klienci k ON z.identyfikator_klienta = k.identyfikator " +
-          "JOIN %s.dostawcy d ON z.identyfikator_dostawcy = d.identyfikator ",
+          "LEFT JOIN %s.dostawcy d ON z.identyfikator_dostawcy = d.identyfikator ",
       Application.schema, Application.schema, Application.schema, Application.schema,
       Application.schema, Application.schema, Application.schema, Application.schema
   );

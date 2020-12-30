@@ -1,6 +1,5 @@
 package potrawa.components.frames.client;
 
-import potrawa.components.frames.deliverer.DelivererUserDataFrame;
 import potrawa.error.DefaultSqlHandler;
 
 import javax.swing.*;
@@ -15,6 +14,7 @@ public class ClientMainFrame extends JFrame {
   private JButton button1;
   private JButton button2;
   private JButton button3;
+  private JButton button5;
   private JButton button4;
 
   private final Connection connection_;
@@ -35,7 +35,9 @@ public class ClientMainFrame extends JFrame {
 
     button3.addActionListener(e -> onOpinionsList());
 
-    button4.addActionListener(e -> onUserData());
+    button4.addActionListener(e -> onOrdersList());
+
+    button5.addActionListener(e -> onUserData());
 
     setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
     addWindowListener(new WindowAdapter() {
@@ -70,6 +72,14 @@ public class ClientMainFrame extends JFrame {
   private void onOpinionsList() {
     SwingUtilities.invokeLater(() -> {
       JFrame nextFrame = new ClientOpinionsListFrame(this, connection_);
+      nextFrame.setVisible(true);
+    });
+    setVisible(false);
+  }
+
+  private void onOrdersList() {
+    SwingUtilities.invokeLater(() -> {
+      JFrame nextFrame = new ClientOrdersListFrame(this, connection_);
       nextFrame.setVisible(true);
     });
     setVisible(false);

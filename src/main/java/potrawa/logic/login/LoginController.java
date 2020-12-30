@@ -64,7 +64,11 @@ public class LoginController {
             break;
           default:  // Remove later
             statement = connection_.createStatement();
-            statement.execute("DELETE FROM inf141240.UZYTKOWNICY WHERE IDENTYFIKATOR=USER");
+            statement.execute(
+                "BEGIN " +
+                    "inf141240.Wspolne.USUN_KONTO(); " +
+                    "END; "
+            );
             statement.close();
             break;
         }

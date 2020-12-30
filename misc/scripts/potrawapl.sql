@@ -268,11 +268,12 @@ CREATE PACKAGE Klient AS
         
     PROCEDURE Usun_Opinie(pIdRestauracji IN restauracje.identyfikator%TYPE);
         
-    PROCEDURE Wstaw_Zamowienie(
+    FUNCTION Wstaw_Zamowienie(
         pIdRestauracji IN restauracje.identyfikator%TYPE,
         pNazwaPlatnosci IN metody_platnosci.nazwa%TYPE,
         pAdres IN zamowienia.adres%TYPE,
-        pDodatkoweInformacje IN zamowienia.dodatkowe_informacje%TYPE);
+        pDodatkoweInformacje IN zamowienia.dodatkowe_informacje%TYPE) 
+        RETURN zamowienia.id_zamowienia%TYPE;
         
     PROCEDURE Wstaw_Dania_W_Zamowieniu(
         pIdZamowienia IN zamowienia.id_zamowienia%TYPE,
@@ -538,15 +539,20 @@ CREATE OR REPLACE PACKAGE BODY Klient AS
         WHERE identyfikator_restauracji = pIdRestauracji;
     END;
         
-    PROCEDURE Wstaw_Zamowienie(
+    FUNCTION Wstaw_Zamowienie(
         pIdRestauracji IN restauracje.identyfikator%TYPE,
         pNazwaPlatnosci IN metody_platnosci.nazwa%TYPE,
         pAdres IN zamowienia.adres%TYPE,
-        pDodatkoweInformacje IN zamowienia.dodatkowe_informacje%TYPE) AS
+        pDodatkoweInformacje IN zamowienia.dodatkowe_informacje%TYPE)
+        RETURN zamowienia.id_zamowienia%TYPE AS
+        vIdZamowienia zamowienia.id_zamowienia%TYPE;
     BEGIN
         INSERT INTO zamowienia(identyfikator_klienta, identyfikator_restauracji, 
             nazwa_metody_platnosci, adres, dodatkowe_informacje)
-        VALUES (USER, pIdRestauracji, pNazwaPlatnosci, pAdres, pDodatkoweInformacje);
+        VALUES (USER, pIdRestauracji, pNazwaPlatnosci, pAdres, pDodatkoweInformacje)
+        RETURNING id_zamowienia INTO vIdZamowienia;
+        
+        RETURN vIdZamowienia;
     END;
         
     PROCEDURE Wstaw_Dania_W_Zamowieniu(

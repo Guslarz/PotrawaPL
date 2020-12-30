@@ -1,6 +1,5 @@
 package potrawa.components.frames.client;
 
-import potrawa.components.elements.OpinionElement;
 import potrawa.components.elements.RestaurantElement;
 import potrawa.data.Opinion;
 import potrawa.data.Restaurant;
@@ -85,34 +84,39 @@ public class ClientRestaurantsListFrame extends JFrame {
       JPanel restaurantElement = new RestaurantElement(restaurant);
 
       JButton buttonSelect = new JButton("Wyświetl dania");
-      buttonSelect.addActionListener(e -> onRestaurantSelect(restaurant.getId()));
+      buttonSelect.addActionListener(e -> onRestaurantSelect(restaurant));
       JPanel selectPanel = new JPanel();
       selectPanel.add(buttonSelect);
       restaurantElement.add(selectPanel);
 
       JButton buttonOpinion = new JButton("Wystaw opinię");
-      buttonOpinion.addActionListener(e -> onOpinion(restaurant.getId(), restaurant.getName()));
+      buttonOpinion.addActionListener(e -> onOpinion(restaurant));
       JPanel opinionPanel = new JPanel();
       opinionPanel.add(buttonOpinion);
       restaurantElement.add(opinionPanel);
 
       listPanel.add(restaurantElement);
     }
+    listPanel.add(new Box.Filler(new Dimension(0, 0),
+        new Dimension(0, Short.MAX_VALUE),
+        new Dimension(0, Short.MAX_VALUE)));
+
     JScrollPane scrollPane = new JScrollPane(listPanel);
     scrollPane.setPreferredSize(new Dimension(500, 500));
     mainPanel.add(scrollPane);
   }
 
-  private void onRestaurantSelect(String restaurantId) {
-
+  private void onRestaurantSelect(Restaurant restaurant) {
+    JFrame nextFrame = new ClientRestaurantFrame(this, connection_, restaurant);
+    nextFrame.setVisible(true);
+    setVisible(false);
   }
 
-  private void onOpinion(String restaurantId, String restaurantName) {
-    Opinion opinion = controller_.getOpinion(restaurantId);
+  private void onOpinion(Restaurant restaurant) {
+    Opinion opinion = controller_.getOpinion(restaurant.getId());
     JFrame nextFrame;
     if (opinion == null) {
-      nextFrame = new ClientOpinionFrame(this, connection_,
-          restaurantId, restaurantName);
+      nextFrame = new ClientOpinionFrame(this, connection_, restaurant);
     } else {
       nextFrame = new ClientOpinionFrame(this, connection_, opinion);
     }

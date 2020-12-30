@@ -56,4 +56,15 @@ INSERT INTO opinie (identyfikator_klienta, identyfikator_restauracji, ocena, kom
 VALUES ('INF141240', 'restauracja03', 5, 'Fajne jedzonko');
 
 
+INSERT INTO dania (identyfikator_restauracji, nazwa, opis, cena, nazwa_kategorii)
+VALUES ('restauracja00', 'Danie 00', 'Fajne danie', 20, null);
+INSERT INTO dania (identyfikator_restauracji, nazwa, opis, cena, nazwa_kategorii)
+VALUES ('restauracja00', 'Danie 01', 'Fajne danie', 20, null);
+INSERT INTO dania (identyfikator_restauracji, nazwa, opis, cena, nazwa_kategorii)
+VALUES ('restauracja00', 'Danie 02', 'Fajne danie', 20, null);
+INSERT INTO dania (identyfikator_restauracji, nazwa, opis, cena, nazwa_kategorii)
+VALUES ('restauracja00', 'Danie 03', 'Fajne danie', 20, null);
+INSERT INTO dania (identyfikator_restauracji, nazwa, opis, cena, nazwa_kategorii)
+VALUES ('restauracja00', 'Danie 04', 'Fajne danie', 20, null);
+
 COMMIT;

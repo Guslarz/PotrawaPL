@@ -1,8 +1,8 @@
-package potrawa.components.frames.deliverer;
+package potrawa.components.frames.client;
 
 import potrawa.components.elements.OrderElement;
 import potrawa.data.Order;
-import potrawa.logic.deliverer.DelivererOrdersListController;
+import potrawa.logic.client.ClientOrdersListController;
 
 import javax.swing.*;
 import java.awt.*;
@@ -10,31 +10,27 @@ import java.awt.event.*;
 import java.sql.Connection;
 import java.util.List;
 
-public class DelivererOrdersListFrame extends JFrame {
+public class ClientOrdersListFrame extends JFrame {
   private JPanel contentPane;
+  private JButton buttonOK;
   private JButton buttonCancel;
   private JPanel mainPanel;
 
   private final JFrame parentFrame_;
-  private final DelivererOrdersListController controller_;
+  private final ClientOrdersListController controller_;
 
-  public DelivererOrdersListFrame(JFrame parentFrame, Connection connection) {
-    super("Zamówienia dostawcy");
+  public ClientOrdersListFrame(JFrame parentFrame, Connection connection) {
+    super("Zamówienia");
 
     parentFrame_ = parentFrame;
-    controller_ = new DelivererOrdersListController(connection);
+    controller_ = new ClientOrdersListController(connection);
 
-    List<Order> orders = controller_.getOrders();
-
-    if (orders == null || orders.size() == 0) {
-      addPlaceholder();
-    } else {
-      addList(orders);
-    }
+    loadOrders();
 
     setContentPane(contentPane);
-    pack();
+    getRootPane().setDefaultButton(buttonOK);
     setResizable(false);
+    pack();
     setLocationRelativeTo(null);
 
     buttonCancel.addActionListener(e -> onCancel());
@@ -51,6 +47,16 @@ public class DelivererOrdersListFrame extends JFrame {
         JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
   }
 
+  private void loadOrders() {
+    List<Order> orders = controller_.getOrders();
+
+    if (orders == null || orders.size() == 0) {
+      addPlaceholder();
+    } else {
+      addList(orders);
+    }
+  }
+
   private void addPlaceholder() {
     JLabel label = new JLabel("Brak zamówień do wyświetlenia");
     mainPanel.add(label);
@@ -61,14 +67,6 @@ public class DelivererOrdersListFrame extends JFrame {
     listPanel.setLayout(new BoxLayout(listPanel, BoxLayout.Y_AXIS));
     for (Order order : orders) {
       JPanel orderElement = new OrderElement(order);
-      JButton button = new JButton("Oznacz jako dostarczone");
-      button.addActionListener(e -> {
-        controller_.confirmDelivery(order.getId());
-        button.setEnabled(false);
-      });
-      orderElement.add(new JPanel() {{
-        add(button);
-      }});
       listPanel.add(orderElement);
     }
     listPanel.add(new Box.Filler(new Dimension(0, 0),
