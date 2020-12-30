@@ -23,7 +23,6 @@ public class ClientOrdersListController {
       String query = Order.query +
           "WHERE identyfikator_klienta = USER " +
           "ORDER BY timestamp DESC ";
-      System.out.println(query);
       Statement statement = connection_.createStatement();
       ResultSet resultSet = statement.executeQuery(query);
 

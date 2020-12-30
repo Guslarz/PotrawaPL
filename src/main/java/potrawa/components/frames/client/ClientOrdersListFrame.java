@@ -70,11 +70,11 @@ public class ClientOrdersListFrame extends JFrame {
       listPanel.add(orderElement);
     }
     listPanel.add(new Box.Filler(new Dimension(0, 0),
-        new Dimension(0, Short.MAX_VALUE),
-        new Dimension(0, Short.MAX_VALUE)));
+        new Dimension(0, 500),
+        new Dimension(0, 500)));
 
     JScrollPane scrollPane = new JScrollPane(listPanel);
-    scrollPane.setPreferredSize(new Dimension(500, 600));
+    scrollPane.setPreferredSize(new Dimension(500, 500));
     mainPanel.add(scrollPane);
   }
 

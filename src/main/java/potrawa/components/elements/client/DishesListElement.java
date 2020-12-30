@@ -67,8 +67,8 @@ public class DishesListElement extends JPanel {
       listPanel.add(dishElement);
     }
     listPanel.add(new Box.Filler(new Dimension(0, 0),
-        new Dimension(0, Short.MAX_VALUE),
-        new Dimension(0, Short.MAX_VALUE)));
+        new Dimension(0, 500),
+        new Dimension(0, 500)));
 
     JScrollPane scrollPane = new JScrollPane(listPanel);
     scrollPane.setPreferredSize(new Dimension(500, 500));

@@ -75,13 +75,14 @@ public class OrderDishesElement extends JPanel implements OrderListener {
 
       listPanel.add(entryPanel);
     }
-    listPanel.add(new Box.Filler(new Dimension(0, 0),
-        new Dimension(0, Short.MAX_VALUE),
-        new Dimension(0, Short.MAX_VALUE)));
 
     JScrollPane scrollPane = new JScrollPane(listPanel);
     scrollPane.setPreferredSize(new Dimension(500, 400));
     add(scrollPane);
+
+    listPanel.add(new Box.Filler(new Dimension(0, 0),
+        new Dimension(0, 400),
+        new Dimension(0, 400)));
 
     JPanel sumPanel = new JPanel();
     sumPanel.add(new JLabel("Suma: "));
