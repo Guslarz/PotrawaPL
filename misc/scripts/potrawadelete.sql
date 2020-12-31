@@ -12,12 +12,12 @@ DELETE FROM restauracje;
 
 DELETE FROM dostawcy;
 
-DELETE FORM klienci;
+DELETE FROM klienci;
 
-DELETE FORM uzytkownicy;
+DELETE FROM uzytkownicy;
 
 -- DELETE FROM metody_platnosci;
 
-DELETE FORM alergeny;
+DELETE FROM alergeny;
 
 DELETE FROM kategorie;

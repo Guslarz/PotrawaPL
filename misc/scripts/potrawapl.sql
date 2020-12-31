@@ -224,7 +224,7 @@ ON dania(cena);
 
 -- CONSTANT INSERTS
 INSERT INTO metody_platnosci(nazwa)
-VALUES ('GOTÓWKA PRZY ODBIORZE');
+VALUES ('GOTï¿½WKA PRZY ODBIORZE');
 INSERT INTO metody_platnosci(nazwa)
 VALUES ('KARTA PRZY ODBIORZE');
 INSERT INTO metody_platnosci(nazwa)
@@ -297,11 +297,20 @@ CREATE PACKAGE Restauracja AS
     
     PROCEDURE Zmien_Opis(pOpis IN restauracje.opis%TYPE);
     
-    PROCEDURE Wstaw_Lub_Zmien_Danie(
+    PROCEDURE Wstaw_Danie(
         pNazwa IN dania.nazwa%TYPE,
         pOpis IN dania.opis%TYPE,
         pCena IN dania.cena%TYPE,
         pNazwaKategorii IN kategorie.nazwa%TYPE);
+
+    PROCEDURE Zmien_Danie(
+        pNazwa IN dania.nazwa%TYPE,
+        pOpis IN dania.opis%TYPE,
+        pCena IN dania.cena%TYPE,
+        pNazwaKategorii IN kategorie.nazwa%TYPE);
+
+    PROCEDURE Usun_Danie(
+        pNazwa IN dania.nazwa%TYPE);
     
     PROCEDURE Dodaj_Alergen_Do_Dania(
         pNazwaDania IN dania.nazwa%TYPE,
@@ -628,6 +637,37 @@ CREATE PACKAGE BODY Restauracja IS
             INSERT INTO dania(identyfikator_restauracji, nazwa, opis, cena, nazwa_kategorii)
             VALUES (USER, pNazwa, pOpis, pCena, pNazwaKategorii);
         END IF;
+    END;
+
+    PROCEDURE Wstaw_Danie(
+        pNazwa IN dania.nazwa%TYPE,
+        pOpis IN dania.opis%TYPE,
+        pCena IN dania.cena%TYPE,
+        pNazwaKategorii IN kategorie.nazwa%TYPE) AS
+    BEGIN
+        INSERT INTO dania(identyfikator_restauracji, nazwa, opis, cena, nazwa_kategorii)
+        VALUES (USER, pNazwa, pOpis, pCena, pNazwaKategorii);
+    END;
+
+    PROCEDURE Zmien_Danie(
+        pNazwa IN dania.nazwa%TYPE,
+        pOpis IN dania.opis%TYPE,
+        pCena IN dania.cena%TYPE,
+        pNazwaKategorii IN kategorie.nazwa%TYPE) AS
+    BEGIN
+        UPDATE dania
+        SET opis = pOpis,
+            cena = pCena,
+            nazwa_kategorii = pNazwaKategorii
+        WHERE identyfikator_restauracji = USER
+          AND nazwa = pNazwa;
+    END;
+
+    PROCEDURE Usun_Danie(pNazwa IN dania.nazwa%TYPE) AS
+    BEGIN
+        DELETE FROM dania
+        WHERE identyfikator_restauracji = USER
+            AND nazwa = pNazwa;
     END;
     
     PROCEDURE Dodaj_Alergen_Do_Dania(

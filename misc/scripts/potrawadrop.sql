@@ -1,7 +1,3 @@
-EXECUTE Autoryzacja.Klient;
-EXECUTE Autoryzacja.Dostawca;
-EXECUTE Autoryzacja.Restauracja;
-
 -- PACKAGES
 DROP PACKAGE Wspolne;
 
@@ -10,8 +6,6 @@ DROP PACKAGE Klient;
 DROP PACKAGE Dostawca;
 
 DROP PACKAGE Restauracja;
-
--- DROP PACKAGE Autoryzacja;
 
 
 -- ROLES
