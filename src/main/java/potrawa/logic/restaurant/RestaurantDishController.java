@@ -15,22 +15,22 @@ public class RestaurantDishController {
     connection_ = connection;
   }
 
-  public boolean updateDish(String name, String description, double price, String category) {
+  public boolean finishUpdatingDish(String name, String description, double price, String category,
+                                    List<String> insertedAllergens, List<String> deletedAllergens) {
     try {
-      String query = String.format(
-              "BEGIN " +
-                      "%s.Restauracja.Zmien_Danie(?, ?, ?, ?); " +
-                      "END; ",
-              Application.schema
-      );
-      PreparedStatement statement = connection_.prepareStatement(query);
-      statement.setString(1, name);
-      statement.setString(2, description);
-      statement.setDouble(3, price);
-      statement.setString(4, category);
-      statement.execute();
-      statement.close();
+      connection_.setAutoCommit(false);
+      updateDish(name, description, price, category);
 
+      for (String allergen : insertedAllergens) {
+        insertAllergen(name, allergen);
+      }
+
+      for (String allergen : deletedAllergens) {
+        deleteAllergen(name, allergen);
+      }
+
+      connection_.commit();
+      connection_.setAutoCommit(true);
       return true;
     } catch (SQLException ex) {
       DefaultSqlHandler.handle(ex);
@@ -38,22 +38,35 @@ public class RestaurantDishController {
     }
   }
 
-  public boolean insertDish(String name, String description, double price, String category) {
-    try {
-      String query = String.format(
-              "BEGIN " +
-                      "%s.Restauracja.Wstaw_Danie(?, ?, ?, ?); " +
-                      "END; ",
-              Application.schema
-      );
-      PreparedStatement statement = connection_.prepareStatement(query);
-      statement.setString(1, name);
-      statement.setString(2, description);
-      statement.setDouble(3, price);
-      statement.setString(4, category);
-      statement.execute();
-      statement.close();
+  public void updateDish(String name, String description, double price,
+                         String category) throws SQLException {
+    String query = String.format(
+            "BEGIN " +
+                    "%s.Restauracja.Zmien_Danie(?, ?, ?, ?); " +
+                    "END; ",
+            Application.schema
+    );
+    PreparedStatement statement = connection_.prepareStatement(query);
+    statement.setString(1, name);
+    statement.setString(2, description);
+    statement.setDouble(3, price);
+    statement.setString(4, category);
+    statement.execute();
+    statement.close();
+  }
 
+  public boolean finishInsertingDish(String name, String description, double price,
+                                     String category, List<String> allergens) {
+    try {
+      connection_.setAutoCommit(false);
+      insertDish(name, description, price, category);
+
+      for (String allergen : allergens) {
+        insertAllergen(name, allergen);
+      }
+
+      connection_.commit();
+      connection_.setAutoCommit(true);
       return true;
     } catch (SQLException ex) {
       DefaultSqlHandler.handle(ex);
@@ -61,46 +74,49 @@ public class RestaurantDishController {
     }
   }
 
-  public boolean insertAllergen(String dishName, String allergenName) {
-    try {
-      String query = String.format(
-              "BEGIN " +
-                      "%s.Restauracja.Dodaj_Alergen_Do_Dania(?, ?); " +
-                      "END; ",
-              Application.schema
-      );
-      PreparedStatement statement = connection_.prepareStatement(query);
-      statement.setString(1, dishName);
-      statement.setString(2, allergenName);
-      statement.execute();
-      statement.close();
-
-      return true;
-    } catch (SQLException ex) {
-      DefaultSqlHandler.handle(ex);
-      return false;
-    }
+  public void insertDish(String name, String description, double price,
+                            String category) throws SQLException {
+    String query = String.format(
+            "BEGIN " +
+                    "%s.Restauracja.Wstaw_Danie(?, ?, ?, ?); " +
+                    "END; ",
+            Application.schema
+    );
+    PreparedStatement statement = connection_.prepareStatement(query);
+    statement.setString(1, name);
+    statement.setString(2, description);
+    statement.setDouble(3, price);
+    statement.setString(4, category);
+    statement.execute();
+    statement.close();
   }
 
-  public boolean deleteAllergen(String dishName, String allergenName) {
-    try {
-      String query = String.format(
-              "BEGIN " +
-                      "%s.Restauracja.Usun_Alergen_Z_Dania(?, ?); " +
-                      "END; ",
-              Application.schema
-      );
-      PreparedStatement statement = connection_.prepareStatement(query);
-      statement.setString(1, dishName);
-      statement.setString(2, allergenName);
-      statement.execute();
-      statement.close();
+  public void insertAllergen(String dishName, String allergenName) throws SQLException {
+    String query = String.format(
+            "BEGIN " +
+                    "%s.Restauracja.Dodaj_Alergen_Do_Dania(?, ?); " +
+                    "END; ",
+            Application.schema
+    );
+    PreparedStatement statement = connection_.prepareStatement(query);
+    statement.setString(1, dishName);
+    statement.setString(2, allergenName);
+    statement.execute();
+    statement.close();
+  }
 
-      return true;
-    } catch (SQLException ex) {
-      DefaultSqlHandler.handle(ex);
-      return false;
-    }
+  public void deleteAllergen(String dishName, String allergenName) throws SQLException {
+    String query = String.format(
+            "BEGIN " +
+                    "%s.Restauracja.Usun_Alergen_Z_Dania(?, ?); " +
+                    "END; ",
+            Application.schema
+    );
+    PreparedStatement statement = connection_.prepareStatement(query);
+    statement.setString(1, dishName);
+    statement.setString(2, allergenName);
+    statement.execute();
+    statement.close();
   }
 
   public List<String> getCategories() {

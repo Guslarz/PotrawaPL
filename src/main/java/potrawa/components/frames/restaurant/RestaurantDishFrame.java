@@ -144,19 +144,19 @@ public class RestaurantDishFrame extends JFrame {
     String category = (String) comboBox1.getSelectedItem();
 
     List<String> prevAllergens = controller_.getDishAllergens(name);
+    List<String> insertedAllergens = new ArrayList<>();
+    List<String> deletedAllergens = new ArrayList<>();
 
-    if (controller_.updateDish(name, description, price, category)) {
-
-      for (JCheckBox box : checkboxes_) {
-        if (box.isSelected() && !prevAllergens.contains(box.getText())) {
-          controller_.insertAllergen(name, box.getText());
-        }
-
-        if (!box.isSelected() && prevAllergens.contains(box.getText())) {
-          controller_.deleteAllergen(name, box.getText());
-        }
+    for (JCheckBox box : checkboxes_) {
+      if (box.isSelected() && !prevAllergens.contains(box.getText())) {
+        insertedAllergens.add(box.getText());
+      } else if (!box.isSelected() && prevAllergens.contains(box.getText())) {
+        deletedAllergens.add(box.getText());
       }
+    }
 
+    if (controller_.finishUpdatingDish(name, description, price,
+            category, insertedAllergens, deletedAllergens)) {
       parentFrame_.setVisible(true);
       dispose();
     }
@@ -167,15 +167,15 @@ public class RestaurantDishFrame extends JFrame {
     String description = textAreaDescription.getText();
     double price = Double.valueOf(textFieldPrice.getText());
     String category = (String) comboBox1.getSelectedItem();
+    List<String> allergens = new ArrayList<>();
 
-    if (controller_.insertDish(name, description, price, category)) {
-
-      for (JCheckBox box : checkboxes_) {
-        if (box.isSelected()) {
-          controller_.insertAllergen(name, box.getText());
-        }
+    for (JCheckBox box : checkboxes_) {
+      if (box.isSelected()) {
+        allergens.add(box.getText());
       }
+    }
 
+    if (controller_.finishInsertingDish(name, description, price, category, allergens)) {
       parentFrame_.setVisible(true);
       dispose();
     }
