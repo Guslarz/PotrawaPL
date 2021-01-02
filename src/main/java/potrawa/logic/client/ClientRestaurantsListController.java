@@ -64,7 +64,8 @@ public class ClientRestaurantsListController {
   public Opinion getOpinion(String restaurantId) {
     try {
       String query = Opinion.query +
-          "WHERE identyfikator_restauracji = ? ";
+          "WHERE identyfikator_restauracji = ? " +
+          "AND identfikator_klienta = USER ";
       PreparedStatement statement = connection_.prepareStatement(query);
       statement.setString(1, restaurantId);
       ResultSet resultSet = statement.executeQuery();

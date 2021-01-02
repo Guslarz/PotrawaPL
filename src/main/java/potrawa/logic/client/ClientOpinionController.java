@@ -9,7 +9,7 @@ import java.sql.SQLException;
 
 public class ClientOpinionController {
 
-  private Connection connection_;
+  private final Connection connection_;
 
   public ClientOpinionController(Connection connection) {
     connection_ = connection;

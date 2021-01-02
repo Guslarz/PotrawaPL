@@ -21,3 +21,5 @@ DELETE FROM uzytkownicy;
 DELETE FROM alergeny;
 
 DELETE FROM kategorie;
+
+COMMIT;
