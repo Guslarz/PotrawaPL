@@ -107,7 +107,9 @@ public class RestaurantDishFrame extends JFrame {
     List<String> allergens = controller_.getAllergens();
 
     if (allergens == null || allergens.size() == 0) {
-      //TODO sth
+      JLabel label = new JLabel();
+      label.setText("brak alergenów w bazie");
+      allergensPanel.add(label);
     } else {
       for (String allergen : allergens) {
         JCheckBox checkBox = new JCheckBox(allergen);
@@ -123,7 +125,9 @@ public class RestaurantDishFrame extends JFrame {
     List<String> dishAllergens = controller_.getDishAllergens(dish.getName());
 
     if (allergens == null || allergens.size() == 0) {
-      //TODO sth
+      JLabel label = new JLabel();
+      label.setText("brak alergenów w bazie");
+      allergensPanel.add(label);
     } else {
       for (String allergen : allergens) {
         JCheckBox checkBox = new JCheckBox(allergen);

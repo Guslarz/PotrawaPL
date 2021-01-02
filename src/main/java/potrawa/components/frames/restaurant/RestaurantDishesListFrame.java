@@ -59,6 +59,9 @@ public class RestaurantDishesListFrame extends JFrame {
     } else {
       addList(dishes);
     }
+
+    pack();
+    setLocationRelativeTo(null);
   }
 
   private void addPlaceholder() {
