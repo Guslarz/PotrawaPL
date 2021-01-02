@@ -4,6 +4,7 @@ import potrawa.application.Application;
 import potrawa.components.frames.client.ClientMainFrame;
 import potrawa.components.frames.deliverer.DelivererMainFrame;
 import potrawa.components.frames.new_user.NewUserFrame;
+import potrawa.components.frames.restaurant.RestaurantMainFrame;
 import potrawa.error.DefaultSqlHandler;
 
 import javax.swing.*;
@@ -59,6 +60,12 @@ public class LoginController {
           case "DOSTAWCA":
             SwingUtilities.invokeLater(() -> {
               JFrame nextFrame = new DelivererMainFrame(connection_);
+              nextFrame.setVisible(true);
+            });
+            break;
+          case "RESTAURACJA":
+            SwingUtilities.invokeLater(() -> {
+              JFrame nextFrame = new RestaurantMainFrame(connection_);
               nextFrame.setVisible(true);
             });
             break;

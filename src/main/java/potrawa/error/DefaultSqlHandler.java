@@ -19,6 +19,9 @@ public class DefaultSqlHandler {
       case 17002:
         msg = "Brak połączenia";
         break;
+      case 00001:
+        msg = "Rekord o takich danych już istnieje";
+        break;
       default:
         msg = "Nieznany błąd";
         System.out.println(ex.toString());
