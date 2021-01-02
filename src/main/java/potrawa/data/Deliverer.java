@@ -63,4 +63,10 @@ public class Deliverer {
   public void setStatus(boolean status) {
     status_ = status;
   }
+
+
+  @Override
+  public String toString() {
+    return name_ + " " + surname_;
+  }
 }
