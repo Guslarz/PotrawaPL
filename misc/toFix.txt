@@ -1,0 +1,16 @@
+1. dla restauracji - gdy lista zamówień jest pusta - za pierwszym razem wyskakuje "nieznany błąd", za kolejnymi już okienko "brak zamówień"
+2. czy check constraint jest tylko przy cenie? bo dla tego błędu zrobiłam wiadomość o cenie i nwm czy nie przypał, czy nie pojawi się gdzieś indziej
+--3. czy kategoria w daniu może być pusta czy danie musi mieć kategorię
+4. gdy jest tylko jedna kategoria to jest automatycznie wybierana - tak ma być? to w sumie nawiązuje do pytania 3.
+5. cena w daniu - brak sprawdzania czy to liczba - NumberFormatException
+6. ogólny błąd "rekord o takich danych już istnieje" - ok? 
+7. dodać walidację imienia, nazwiska, nazwy kategorii, nazwy alergenu
+8. coś ala wyloguj czy to skomplikowane :(
+9. z ciekawości - jak generowany jest nr zamówienia? zaczynając nową bazę zaczęło od nr 12
+10. poprawić format daty w zamówieniu? żeby nie było części milisekund
+--11. gdy brak dostępnego dostawcy i kliknięcie zatwierdź przy modyfikacji zamówienia - NullPointerException
+12. usunięcie dania z bazy w trakcie zamówienia - puste zamówienie za 0 zł - coś z tym trzeba zrobić! 
+--13. dostawca - lista zamówień - po kliknięciu "oznacz jako dostarczone" nie znika z listy, nadal widoczne
+--14. inny klient chce wystawić nową opinię dla restauracji, dla której inny klient już wystawił - w ramce zapamiętane dane tego klienta porzedniego
+
+(punkty z podwójnym myślnikiem - zrobione)

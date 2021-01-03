@@ -169,8 +169,9 @@ public class RestaurantDishFrame extends JFrame {
   private void onOKInsert() {
     String name = textFieldName.getText();
     String description = textAreaDescription.getText();
-    double price = Double.valueOf(textFieldPrice.getText());
     String category = (String) comboBox1.getSelectedItem();
+    double price = Double.valueOf(textFieldPrice.getText());
+
     List<String> allergens = new ArrayList<>();
 
     for (JCheckBox box : checkboxes_) {

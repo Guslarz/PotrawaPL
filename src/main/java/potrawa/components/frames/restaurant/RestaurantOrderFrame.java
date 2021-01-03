@@ -29,6 +29,7 @@ public class RestaurantOrderFrame extends JFrame {
     List<Deliverer> deliverers = controller_.getDeliverers();
     if (deliverers == null || deliverers.size() == 0) {
       comboBox1.setEnabled(false);
+      buttonOK.setEnabled(false);
     } else {
       for (Deliverer deliverer : deliverers) {
         comboBox1.addItem(deliverer);
