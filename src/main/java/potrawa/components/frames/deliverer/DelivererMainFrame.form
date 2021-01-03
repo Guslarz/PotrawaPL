@@ -16,20 +16,20 @@
         <properties/>
         <border type="none"/>
         <children>
-          <component id="b0443" class="javax.swing.JButton" binding="button1">
-            <constraints>
-              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="1" use-parent-layout="false"/>
-            </constraints>
-            <properties>
-              <text value="Lista zamówień"/>
-            </properties>
-          </component>
           <component id="e08c" class="javax.swing.JButton" binding="button2">
             <constraints>
               <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
               <text value="Dane użytkownika"/>
+            </properties>
+          </component>
+          <component id="45ff3" class="javax.swing.JButton" binding="button1" default-binding="true">
+            <constraints>
+              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <text value="Lista zamówień"/>
             </properties>
           </component>
         </children>
