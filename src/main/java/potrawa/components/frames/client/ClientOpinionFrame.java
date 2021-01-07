@@ -21,8 +21,6 @@ public class ClientOpinionFrame extends JFrame {
   private String restaurantId_;
 
   private ClientOpinionFrame(JFrame parentFrame, Connection connection) {
-    super("Opinia o restauracji");
-
     parentFrame_ = parentFrame;
     controller_ = new ClientOpinionController(connection);
 

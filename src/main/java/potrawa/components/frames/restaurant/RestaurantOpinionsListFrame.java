@@ -19,8 +19,6 @@ public class RestaurantOpinionsListFrame extends JFrame {
   private final RestaurantOpinionsListController controller_;
 
   public RestaurantOpinionsListFrame(JFrame parentFrame, Connection connection) {
-    super("Opinie");
-
     parentFrame_ = parentFrame;
     controller_ = new RestaurantOpinionsListController(connection);
 

@@ -16,8 +16,6 @@ public class RestaurantCategoryFrame extends JFrame {
   private final RestaurantCategoryController controller_;
 
   public RestaurantCategoryFrame(JFrame parentFrame, Connection connection) {
-    super("Dodawanie kategorii");
-
     parentFrame_ = parentFrame;
     controller_ = new RestaurantCategoryController(connection);
 

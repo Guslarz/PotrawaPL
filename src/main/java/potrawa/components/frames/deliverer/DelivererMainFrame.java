@@ -17,8 +17,6 @@ public class DelivererMainFrame extends JFrame {
   private final Connection connection_;
 
   public DelivererMainFrame(Connection connection) {
-    super("Dostawca");
-
     connection_ = connection;
 
     setContentPane(contentPane);

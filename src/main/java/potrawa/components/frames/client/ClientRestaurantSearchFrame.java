@@ -14,8 +14,6 @@ public class ClientRestaurantSearchFrame extends JFrame {
   private final Connection connection_;
 
   public ClientRestaurantSearchFrame(JFrame parentFrame, Connection connection) {
-    super("Wyszukaj restaurację");
-
     parentFrame_ = parentFrame;
     connection_ = connection;
 

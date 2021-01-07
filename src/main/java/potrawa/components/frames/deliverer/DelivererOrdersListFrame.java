@@ -19,8 +19,6 @@ public class DelivererOrdersListFrame extends JFrame {
   private final DelivererOrdersListController controller_;
 
   public DelivererOrdersListFrame(JFrame parentFrame, Connection connection) {
-    super("Zamówienia dostawcy");
-
     parentFrame_ = parentFrame;
     controller_ = new DelivererOrdersListController(connection);
 

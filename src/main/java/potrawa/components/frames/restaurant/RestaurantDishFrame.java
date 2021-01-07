@@ -26,8 +26,6 @@ public class RestaurantDishFrame extends JFrame {
   private List<JCheckBox> checkboxes_ = new ArrayList<>();
 
   public RestaurantDishFrame(JFrame parentFrame, Connection connection) {
-    super("Danie");
-
     parentFrame_ = parentFrame;
     controller_ = new RestaurantDishController(connection);
 
@@ -56,8 +54,6 @@ public class RestaurantDishFrame extends JFrame {
   }
 
   public RestaurantDishFrame(JFrame parentFrame, Connection connection, Dish dish) {
-    super("Danie");
-
     parentFrame_ = parentFrame;
     controller_ = new RestaurantDishController(connection);
 

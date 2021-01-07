@@ -20,8 +20,6 @@ public class ClientUserDataFrame extends JFrame {
   private final ClientUserDataController controller_;
 
   public ClientUserDataFrame(JFrame parentFrame, Connection connection) {
-    super("Dane klienta");
-
     parentFrame_ = parentFrame;
     controller_ = new ClientUserDataController(connection);
 

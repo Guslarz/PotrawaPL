@@ -15,8 +15,6 @@ public class NewUserFrame extends JFrame {
   private JButton buttonRestaurant;
 
   public NewUserFrame(Connection connection, String username) {
-    super("Nowy użytkownik");
-
     controller_ = new NewUserController(connection, username);
 
     setContentPane(contentPane);

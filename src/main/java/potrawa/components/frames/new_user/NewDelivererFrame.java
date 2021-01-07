@@ -16,8 +16,6 @@ public class NewDelivererFrame extends JFrame {
   private JTextField textField2;
 
   public NewDelivererFrame(JFrame parentFrame, NewUserController controller) {
-    super("Nowy dostawca");
-
     parentFrame_ = parentFrame;
     controller_ = controller;
 

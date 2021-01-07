@@ -17,8 +17,6 @@ public class NewClientFrame extends JFrame {
   private final NewUserController controller_;
 
   public NewClientFrame(JFrame parentFrame, NewUserController controller) {
-    super("Nowy klient");
-
     parentFrame_ = parentFrame;
     controller_ = controller;
 

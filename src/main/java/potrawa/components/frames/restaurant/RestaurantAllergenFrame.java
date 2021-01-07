@@ -16,8 +16,6 @@ public class RestaurantAllergenFrame extends JFrame {
   private final RestaurantAllergenController controller_;
 
   public RestaurantAllergenFrame(JFrame parentFrame, Connection connection) {
-    super("Dodawanie alergenu");
-
     parentFrame_ = parentFrame;
     controller_ = new RestaurantAllergenController(connection);
 

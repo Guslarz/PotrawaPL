@@ -24,8 +24,6 @@ public class ClientRestaurantFrame extends JFrame {
 
   public ClientRestaurantFrame(JFrame parentFrame, Connection connection,
                                Restaurant restaurant) {
-    super("Wybór dań do zamówienia");
-
     parentFrame_ = parentFrame;
     controller_ = new ClientRestaurantController(connection, restaurant.getId());
 

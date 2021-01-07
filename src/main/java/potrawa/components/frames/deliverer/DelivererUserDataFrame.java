@@ -20,8 +20,6 @@ public class DelivererUserDataFrame extends JFrame {
   private final DelivererUserDataController controller_;
 
   public DelivererUserDataFrame(JFrame parentFrame, Connection connection) {
-    super("Dane dostawcy");
-
     parentFrame_ = parentFrame;
     controller_ = new DelivererUserDataController(connection);
 

@@ -20,8 +20,6 @@ public class RestaurantOrderFrame extends JFrame {
   private final Order order_;
 
   public RestaurantOrderFrame(JFrame parentFrame, Connection connection, Order order) {
-    super("Modyfikacja zamówienia");
-
     parentFrame_ = parentFrame;
     controller_ = new RestaurantOrderController(connection);
     order_ = order;

@@ -20,8 +20,6 @@ public class ClientOrdersListFrame extends JFrame {
   private final ClientOrdersListController controller_;
 
   public ClientOrdersListFrame(JFrame parentFrame, Connection connection) {
-    super("Zamówienia");
-
     parentFrame_ = parentFrame;
     controller_ = new ClientOrdersListController(connection);
 
