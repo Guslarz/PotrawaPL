@@ -114,7 +114,7 @@ CREATE TABLE dania (
     nazwa                       VARCHAR2(50),
     opis                        VARCHAR2(255),
     cena                        NUMBER(5, 2) NOT NULL,
-    nazwa_kategorii             VARCHAR2(50),
+    nazwa_kategorii             VARCHAR2(50) NOT NULL,
     
     CONSTRAINT dania_pk
         PRIMARY KEY (identyfikator_restauracji, nazwa),
@@ -414,6 +414,10 @@ TO rola_restauracja;
 
 GRANT SELECT, INSERT
 ON alergeny
+TO rola_restauracja;
+
+GRANT SELECT
+ON klienci
 TO rola_restauracja;
 
 GRANT SELECT, UPDATE
