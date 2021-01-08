@@ -22,8 +22,6 @@ public class ClientOpinionsListFrame extends JFrame {
   private final Connection connection_;
 
   public ClientOpinionsListFrame(JFrame parentFrame, Connection connection) {
-    super("Lista opinii klienta");
-
     parentFrame_ = parentFrame;
     controller_ = new ClientOpinionsListController(connection);
     connection_ = connection;

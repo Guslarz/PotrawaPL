@@ -18,8 +18,6 @@ public class ClientOrderFrame extends JFrame {
   private final ClientRestaurantController controller_;
 
   public ClientOrderFrame(JFrame parentFrame, ClientRestaurantController controller) {
-    super("Finalizacja zamówienia");
-
     parentFrame_ = parentFrame;
     controller_ = controller;
 

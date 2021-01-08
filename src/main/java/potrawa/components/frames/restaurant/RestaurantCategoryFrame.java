@@ -5,6 +5,8 @@ import potrawa.logic.restaurant.RestaurantCategoryController;
 import javax.swing.*;
 import java.awt.event.*;
 import java.sql.Connection;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class RestaurantCategoryFrame extends JFrame {
   private JPanel contentPane;
@@ -16,8 +18,6 @@ public class RestaurantCategoryFrame extends JFrame {
   private final RestaurantCategoryController controller_;
 
   public RestaurantCategoryFrame(JFrame parentFrame, Connection connection) {
-    super("Dodawanie kategorii");
-
     parentFrame_ = parentFrame;
     controller_ = new RestaurantCategoryController(connection);
 
@@ -45,9 +45,22 @@ public class RestaurantCategoryFrame extends JFrame {
   private void onOK() {
     String name = textField1.getText();
 
-    if (controller_.insertCategory(name)) {
-      parentFrame_.setVisible(true);
-      dispose();
+    try {
+      Pattern regEx = Pattern.compile("[\\p{L}]+");
+      Matcher matcher = regEx.matcher(textField1.getText());
+
+      if (!matcher.matches()) {
+        throw new Exception();
+      }
+
+      if (controller_.insertCategory(name)) {
+        parentFrame_.setVisible(true);
+        dispose();
+      }
+
+    } catch (Exception ex) {
+      JOptionPane.showMessageDialog(new JFrame(), "Podano nieprawidłowo nazwę kategorii!",
+              "", JOptionPane.ERROR_MESSAGE);
     }
   }
 

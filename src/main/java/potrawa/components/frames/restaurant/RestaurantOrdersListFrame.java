@@ -20,8 +20,6 @@ public class RestaurantOrdersListFrame extends JFrame {
   private final Connection connection_;
 
   public RestaurantOrdersListFrame(JFrame parentFrame, Connection connection) {
-    super("Lista zamówień");
-
     parentFrame_ = parentFrame;
     controller_ = new RestaurantOrdersListController(connection);
     connection_ = connection;

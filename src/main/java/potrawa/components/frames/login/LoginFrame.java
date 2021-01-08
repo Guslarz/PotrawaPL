@@ -14,7 +14,6 @@ public class LoginFrame extends JFrame {
   private final LoginController controller_;
 
   public LoginFrame() {
-    super("Logowanie");
     setContentPane(contentPane);
     pack();
     setResizable(false);

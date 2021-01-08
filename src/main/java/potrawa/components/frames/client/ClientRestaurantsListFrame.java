@@ -23,8 +23,6 @@ public class ClientRestaurantsListFrame extends JFrame {
 
   public ClientRestaurantsListFrame(JFrame parentFrame, Connection connection,
                                     String searchString) {
-    super("Lista restauracji");
-
     parentFrame_ = parentFrame;
     controller_ = new ClientRestaurantsListController(connection);
     connection_ = connection;

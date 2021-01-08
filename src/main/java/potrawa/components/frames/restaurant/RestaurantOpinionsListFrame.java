@@ -19,8 +19,6 @@ public class RestaurantOpinionsListFrame extends JFrame {
   private final RestaurantOpinionsListController controller_;
 
   public RestaurantOpinionsListFrame(JFrame parentFrame, Connection connection) {
-    super("Opinie");
-
     parentFrame_ = parentFrame;
     controller_ = new RestaurantOpinionsListController(connection);
 
@@ -73,8 +71,12 @@ public class RestaurantOpinionsListFrame extends JFrame {
       listPanel.add(opinionElement);
     }
 
+    listPanel.add(new Box.Filler(new Dimension(0, 0),
+            new Dimension(0, 500),
+            new Dimension(0, 500)));
+
     JScrollPane scrollPane = new JScrollPane(listPanel);
-    //scrollPane.setPreferredSize(new Dimension(500, 500));
+    scrollPane.setPreferredSize(new Dimension(500, 500));
     mainPanel.add(scrollPane);
   }
 

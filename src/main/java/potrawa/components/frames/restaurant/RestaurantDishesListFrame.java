@@ -21,8 +21,6 @@ public class RestaurantDishesListFrame extends JFrame {
   private final Connection connection_;
 
   public RestaurantDishesListFrame(JFrame parentFrame, Connection connection) {
-    super("Lista dań");
-
     parentFrame_ = parentFrame;
     controller_ = new RestaurantDishesListController(connection);
     connection_ = connection;

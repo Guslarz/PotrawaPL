@@ -19,18 +19,10 @@ public class DelivererOrdersListFrame extends JFrame {
   private final DelivererOrdersListController controller_;
 
   public DelivererOrdersListFrame(JFrame parentFrame, Connection connection) {
-    super("Zamówienia dostawcy");
-
     parentFrame_ = parentFrame;
     controller_ = new DelivererOrdersListController(connection);
 
-    List<Order> orders = controller_.getOrders();
-
-    if (orders == null || orders.size() == 0) {
-      addPlaceholder();
-    } else {
-      addList(orders);
-    }
+    loadOrders();
 
     setContentPane(contentPane);
     pack();
@@ -51,6 +43,20 @@ public class DelivererOrdersListFrame extends JFrame {
         JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
   }
 
+  private void loadOrders() {
+    mainPanel.removeAll();
+    List<Order> orders = controller_.getOrders();
+
+    if (orders == null || orders.size() == 0) {
+      addPlaceholder();
+    } else {
+      addList(orders);
+    }
+
+    pack();
+    setLocationRelativeTo(null);
+  }
+
   private void addPlaceholder() {
     JLabel label = new JLabel("Brak zamówień do wyświetlenia");
     mainPanel.add(label);
@@ -65,6 +71,7 @@ public class DelivererOrdersListFrame extends JFrame {
       button.addActionListener(e -> {
         controller_.confirmDelivery(order.getId());
         button.setEnabled(false);
+        loadOrders();
       });
       orderElement.add(new JPanel() {{
         add(button);

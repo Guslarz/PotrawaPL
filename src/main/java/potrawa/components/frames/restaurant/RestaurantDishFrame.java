@@ -9,6 +9,8 @@ import java.awt.event.*;
 import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class RestaurantDishFrame extends JFrame {
   private JPanel contentPane;
@@ -26,8 +28,6 @@ public class RestaurantDishFrame extends JFrame {
   private List<JCheckBox> checkboxes_ = new ArrayList<>();
 
   public RestaurantDishFrame(JFrame parentFrame, Connection connection) {
-    super("Danie");
-
     parentFrame_ = parentFrame;
     controller_ = new RestaurantDishController(connection);
 
@@ -56,8 +56,6 @@ public class RestaurantDishFrame extends JFrame {
   }
 
   public RestaurantDishFrame(JFrame parentFrame, Connection connection, Dish dish) {
-    super("Danie");
-
     parentFrame_ = parentFrame;
     controller_ = new RestaurantDishController(connection);
 
@@ -144,7 +142,6 @@ public class RestaurantDishFrame extends JFrame {
   private void onOKUpdate() {
     String name = textFieldName.getText();
     String description = textAreaDescription.getText();
-    double price = Double.valueOf(textFieldPrice.getText());
     String category = (String) comboBox1.getSelectedItem();
 
     List<String> prevAllergens = controller_.getDishAllergens(name);
@@ -159,18 +156,32 @@ public class RestaurantDishFrame extends JFrame {
       }
     }
 
-    if (controller_.finishUpdatingDish(name, description, price,
-            category, insertedAllergens, deletedAllergens)) {
-      parentFrame_.setVisible(true);
-      dispose();
+    try {
+      double price = Double.valueOf(textFieldPrice.getText());
+      Pattern regEx = Pattern.compile("\\d{1,3}[./]?\\d{0,2}");
+      Matcher matcher = regEx.matcher(textFieldPrice.getText());
+
+      if (!matcher.matches()) {
+        throw new NumberFormatException();
+      }
+
+      if (controller_.finishUpdatingDish(name, description, price,
+              category, insertedAllergens, deletedAllergens)) {
+        parentFrame_.setVisible(true);
+        dispose();
+      }
+
+    } catch (NumberFormatException ex) {
+      JOptionPane.showMessageDialog(new JFrame(), "Podano nieprawidłowo cenę!",
+              "Cena", JOptionPane.ERROR_MESSAGE);
     }
   }
 
   private void onOKInsert() {
     String name = textFieldName.getText();
     String description = textAreaDescription.getText();
-    double price = Double.valueOf(textFieldPrice.getText());
     String category = (String) comboBox1.getSelectedItem();
+
     List<String> allergens = new ArrayList<>();
 
     for (JCheckBox box : checkboxes_) {
@@ -179,9 +190,23 @@ public class RestaurantDishFrame extends JFrame {
       }
     }
 
-    if (controller_.finishInsertingDish(name, description, price, category, allergens)) {
-      parentFrame_.setVisible(true);
-      dispose();
+    try {
+      double price = Double.valueOf(textFieldPrice.getText());
+      Pattern regEx = Pattern.compile("\\d{1,3}[./]?\\d{0,2}");
+      Matcher matcher = regEx.matcher(textFieldPrice.getText());
+
+      if (!matcher.matches()) {
+        throw new NumberFormatException();
+      }
+
+      if (controller_.finishInsertingDish(name, description, price, category, allergens)) {
+        parentFrame_.setVisible(true);
+        dispose();
+      }
+
+    } catch (NumberFormatException ex) {
+      JOptionPane.showMessageDialog(new JFrame(), "Podano nieprawidłowo cenę!",
+              "Cena", JOptionPane.ERROR_MESSAGE);
     }
   }
 

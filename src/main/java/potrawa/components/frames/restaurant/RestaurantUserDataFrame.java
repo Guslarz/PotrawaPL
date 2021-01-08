@@ -19,8 +19,6 @@ public class RestaurantUserDataFrame extends JFrame {
   private final RestaurantUserDataController controller_;
 
   public RestaurantUserDataFrame(JFrame parentFrame, Connection connection) {
-    super("Dane restauracji");
-
     parentFrame_ = parentFrame;
     controller_ = new RestaurantUserDataController(connection);
 

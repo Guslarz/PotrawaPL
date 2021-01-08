@@ -4,6 +4,8 @@ import potrawa.logic.new_user.NewUserController;
 
 import javax.swing.*;
 import java.awt.event.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class NewClientFrame extends JFrame {
   private JPanel contentPane;
@@ -17,8 +19,6 @@ public class NewClientFrame extends JFrame {
   private final NewUserController controller_;
 
   public NewClientFrame(JFrame parentFrame, NewUserController controller) {
-    super("Nowy klient");
-
     parentFrame_ = parentFrame;
     controller_ = controller;
 
@@ -49,9 +49,22 @@ public class NewClientFrame extends JFrame {
     String surname = textField2.getText();
     String defaultAddress = textField3.getText();
 
-    if (controller_.addClient(name, surname, defaultAddress)) {
-      parentFrame_.dispose();
-      dispose();
+    try {
+      Pattern regEx = Pattern.compile("[\\p{L}]+");
+      Matcher matcher = regEx.matcher(textField1.getText() + textField2.getText());
+
+      if (!matcher.matches()) {
+        throw new Exception();
+      }
+
+      if (controller_.addClient(name, surname, defaultAddress)) {
+        parentFrame_.dispose();
+        dispose();
+      }
+
+    } catch (Exception ex) {
+      JOptionPane.showMessageDialog(new JFrame(), "Podano nieprawidłowo imię i nazwisko!",
+              "", JOptionPane.ERROR_MESSAGE);
     }
   }
 

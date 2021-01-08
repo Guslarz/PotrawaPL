@@ -20,8 +20,6 @@ public class RestaurantOrderFrame extends JFrame {
   private final Order order_;
 
   public RestaurantOrderFrame(JFrame parentFrame, Connection connection, Order order) {
-    super("Modyfikacja zamówienia");
-
     parentFrame_ = parentFrame;
     controller_ = new RestaurantOrderController(connection);
     order_ = order;
@@ -29,6 +27,7 @@ public class RestaurantOrderFrame extends JFrame {
     List<Deliverer> deliverers = controller_.getDeliverers();
     if (deliverers == null || deliverers.size() == 0) {
       comboBox1.setEnabled(false);
+      buttonOK.setEnabled(false);
     } else {
       for (Deliverer deliverer : deliverers) {
         comboBox1.addItem(deliverer);

@@ -19,8 +19,6 @@ public class RestaurantMainFrame extends JFrame {
   private final Connection connection_;
 
   public RestaurantMainFrame(Connection connection) {
-    super("Restauracja");
-
     connection_ = connection;
 
     setContentPane(contentPane);

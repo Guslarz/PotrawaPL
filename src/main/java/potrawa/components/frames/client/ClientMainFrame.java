@@ -20,8 +20,6 @@ public class ClientMainFrame extends JFrame {
   private final Connection connection_;
 
   public ClientMainFrame(Connection connection) {
-    super("Klient");
-
     connection_ = connection;
 
     setContentPane(contentPane);
