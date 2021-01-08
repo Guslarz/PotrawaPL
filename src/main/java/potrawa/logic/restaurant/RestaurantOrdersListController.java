@@ -20,7 +20,6 @@ public class RestaurantOrdersListController {
       String query = Order.query +
               "WHERE z.identyfikator_restauracji = USER " +
               "AND z.status = 'REALIZACJA'";
-      System.out.println(query);
 
       Statement statement = connection_.createStatement();
       ResultSet resultSet = statement.executeQuery(query);

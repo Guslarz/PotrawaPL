@@ -19,8 +19,17 @@ public class DefaultSqlHandler {
       case 17002:
         msg = "Brak połączenia";
         break;
-      case 00001:
+      case 1:
         msg = "Rekord o takich danych już istnieje";
+        break;
+      case 1438:
+        msg = "Wpisano wartość większą niż dozwolona";
+        break;
+      case 12899:
+        msg = "Wpisane dane są za długie";
+        break;
+      case 2290:
+        msg = "Cena musi być większa od 0!";
         break;
       default:
         msg = "Nieznany błąd";

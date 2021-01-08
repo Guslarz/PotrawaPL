@@ -5,6 +5,7 @@ import potrawa.application.Application;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.time.format.DateTimeFormatter;
 
 public class Order {
 
@@ -14,7 +15,7 @@ public class Order {
   private String restaurantName_;
   private String paymentMethod_;
   private String status_;
-  private Timestamp timestamp_;
+  private String timestamp_;
   private String address_;
   private String additionalInformation_;
   private double price_;
@@ -98,7 +99,7 @@ public class Order {
     return status_;
   }
 
-  public Timestamp getTimestamp() {
+  public String getTimestamp() {
     return timestamp_;
   }
 
@@ -143,7 +144,7 @@ public class Order {
   }
 
   public void setTimestamp(Timestamp timestamp) {
-    timestamp_ = timestamp;
+    timestamp_ = timestamp.toLocalDateTime().format(DateTimeFormatter.ofPattern("dd/MM/yyyy  HH:mm:ss"));
   }
 
   public void setAddress(String address) {

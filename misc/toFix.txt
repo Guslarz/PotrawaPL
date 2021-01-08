@@ -1,25 +1,15 @@
 --1. dla restauracji - gdy lista zamówień jest pusta - za pierwszym razem wyskakuje "nieznany błąd", za kolejnymi już okienko "brak zamówień"
 2. czy check constraint jest tylko przy cenie? bo dla tego błędu zrobiłam wiadomość o cenie i nwm czy nie przypał, czy nie pojawi się gdzieś indziej
-- No nie, jest np na ocenie jeszcze
 --3. czy kategoria w daniu może być pusta czy danie musi mieć kategorię
 --4. gdy jest tylko jedna kategoria to jest automatycznie wybierana - tak ma być? to w sumie nawiązuje do pytania 3.
-- Już jest not null
-5. cena w daniu - brak sprawdzania czy to liczba - NumberFormatException
-- No to trzeba dodać - po stronie aplikacji.
+--5. cena w daniu - brak sprawdzania czy to liczba 
 --6. ogólny błąd "rekord o takich danych już istnieje" - ok?
-- No i najs, inaczej by trzeba wszedzie robić osobnego SqlHandlera
-7. dodać walidację imienia, nazwiska, nazwy kategorii, nazwy alergenu
-- no można ale to też po stronie aplikacji
+--7. dodać walidację imienia, nazwiska, nazwy kategorii, nazwy alergenu
 8. coś ala wyloguj czy to skomplikowane :(
-- no można, ale czy nam się chce - wyłączenie apli też wylogowuje XD
 --9. z ciekawości - jak generowany jest nr zamówienia? zaczynając nową bazę zaczęło od nr 12
-- no z tego typu numerkami chodzi o to że nie interesuje Cię ich konkretna wartość
-- no ale no jak zwykła sekwencja, z tym że nigdzie jej nie usuwam więc cały czas kontynuuje pewnie
-10. poprawić format daty w zamówieniu? żeby nie było części milisekund
-- no najprościej chyba toLocalDateTime i format
+--10. poprawić format daty w zamówieniu? żeby nie było części milisekund
 --11. gdy brak dostępnego dostawcy i kliknięcie zatwierdź przy modyfikacji zamówienia - NullPointerException
 12. usunięcie dania z bazy w trakcie zamówienia - puste zamówienie za 0 zł - coś z tym trzeba zrobić!
-- No żeby się przed tym zabezpieczyć musielibyśmy trzymać kopię wielu tabel = duuuuużo zmian w schemacie
 --13. dostawca - lista zamówień - po kliknięciu "oznacz jako dostarczone" nie znika z listy, nadal widoczne
 --14. inny klient chce wystawić nową opinię dla restauracji, dla której inny klient już wystawił - w ramce zapamiętane dane tego klienta porzedniego
 

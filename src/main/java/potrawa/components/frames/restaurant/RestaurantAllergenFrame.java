@@ -5,6 +5,8 @@ import potrawa.logic.restaurant.RestaurantAllergenController;
 import javax.swing.*;
 import java.awt.event.*;
 import java.sql.Connection;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class RestaurantAllergenFrame extends JFrame {
   private JPanel contentPane;
@@ -43,9 +45,22 @@ public class RestaurantAllergenFrame extends JFrame {
   private void onOK() {
     String name = textField1.getText();
 
-    if (controller_.insertAllergen(name)) {
-      parentFrame_.setVisible(true);
-      dispose();
+    try {
+      Pattern regEx = Pattern.compile("[\\p{L}]+");
+      Matcher matcher = regEx.matcher(textField1.getText());
+
+      if (!matcher.matches()) {
+        throw new Exception();
+      }
+
+      if (controller_.insertAllergen(name)) {
+        parentFrame_.setVisible(true);
+        dispose();
+      }
+
+    } catch (Exception ex) {
+      JOptionPane.showMessageDialog(new JFrame(), "Podano nieprawidłowo nazwę alergenu!",
+              "", JOptionPane.ERROR_MESSAGE);
     }
   }
 
