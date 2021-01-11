@@ -46,7 +46,7 @@ public class RestaurantAllergenFrame extends JFrame {
     String name = textField1.getText();
 
     try {
-      Pattern regEx = Pattern.compile("[\\p{L}]+");
+      Pattern regEx = Pattern.compile("[\\p{L}\\s]+");
       Matcher matcher = regEx.matcher(textField1.getText());
 
       if (!matcher.matches()) {

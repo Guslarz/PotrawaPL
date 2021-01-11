@@ -76,6 +76,30 @@ public class ClientRestaurantController {
     }
   }
 
+  public List<Dish> getDishes(String category) {
+    try {
+      String query = Dish.query +
+              "WHERE identyfikator_restauracji = ? " +
+              "AND nazwa_kategorii = ?";
+      PreparedStatement statement = connection_.prepareStatement(query);
+      statement.setString(1, restaurantId_);
+      statement.setString(2, category);
+      ResultSet resultSet = statement.executeQuery();
+
+      List<Dish> dishes = new ArrayList<>();
+      while (resultSet.next()) {
+        dishes.add(Dish.fromResultSet(resultSet));
+      }
+      resultSet.close();
+      statement.close();
+
+      return dishes;
+    } catch (SQLException ex) {
+      DefaultSqlHandler.handle(ex);
+      return null;
+    }
+  }
+
   public String getDefaultAddress() {
     try {
       String query = String.format(
@@ -176,6 +200,30 @@ public class ClientRestaurantController {
 
       statement.execute();
       statement.close();
+    }
+  }
+
+  public List<String> getCategories() {
+    try {
+      String query = String.format(
+              "SELECT nazwa " +
+                      "FROM %s.kategorie ",
+              Application.schema
+      );
+      Statement statement = connection_.createStatement();
+      ResultSet resultSet = statement.executeQuery(query);
+
+      List<String> categories = new ArrayList<>();
+      while (resultSet.next()) {
+        categories.add(resultSet.getString(1));
+      }
+      resultSet.close();
+      statement.close();
+
+      return categories;
+    } catch (SQLException ex) {
+      DefaultSqlHandler.handle(ex);
+      return null;
     }
   }
 
