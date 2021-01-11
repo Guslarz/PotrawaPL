@@ -4,6 +4,7 @@ import potrawa.application.Application;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Objects;
 
 public class Dish {
 
@@ -90,5 +91,18 @@ public class Dish {
 
   public void setAllergens(String allergens) {
     allergens_ = allergens;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    Dish dish = (Dish) o;
+    return Objects.equals(name_, dish.name_);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(name_);
   }
 }
