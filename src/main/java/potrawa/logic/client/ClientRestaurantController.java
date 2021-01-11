@@ -57,7 +57,7 @@ public class ClientRestaurantController {
     try {
       String query = Dish.query +
           "WHERE identyfikator_restauracji = ? " +
-          "ORDER BY category ";
+          "ORDER BY category, price";
       PreparedStatement statement = connection_.prepareStatement(query);
       statement.setString(1, restaurantId_);
       ResultSet resultSet = statement.executeQuery();
@@ -80,7 +80,8 @@ public class ClientRestaurantController {
     try {
       String query = Dish.query +
               "WHERE identyfikator_restauracji = ? " +
-              "AND nazwa_kategorii = ?";
+              "AND nazwa_kategorii = ? " +
+              "ORDER BY cena";
       PreparedStatement statement = connection_.prepareStatement(query);
       statement.setString(1, restaurantId_);
       statement.setString(2, category);
