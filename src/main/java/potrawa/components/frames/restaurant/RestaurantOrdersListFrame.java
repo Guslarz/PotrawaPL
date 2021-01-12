@@ -65,19 +65,21 @@ public class RestaurantOrdersListFrame extends JFrame {
     listPanel.setLayout(new BoxLayout(listPanel, BoxLayout.Y_AXIS));
 
     for (Order order : orders) {
-      JPanel orderElement = new OrderElement(order);
-      JButton buttonUpdate = new JButton("Modyfikuj status");
-      buttonUpdate.addActionListener(e -> SwingUtilities.invokeLater(() -> {
-        RestaurantOrderFrame nextFrame =
-                new RestaurantOrderFrame(this, connection_, order);
-        setVisible(false);
-        nextFrame.setVisible(true);
-      }));
-
       JPanel updatePanel = new JPanel();
-      updatePanel.add(buttonUpdate);
-      orderElement.add(updatePanel);
+      JPanel orderElement = new OrderElement(order);
+      if (order.getStatus().equals("REALIZACJA")) {
+        JButton buttonUpdate = new JButton("Modyfikuj status");
+        buttonUpdate.addActionListener(e -> SwingUtilities.invokeLater(() -> {
+          RestaurantOrderFrame nextFrame =
+                  new RestaurantOrderFrame(this, connection_, order);
+          setVisible(false);
+          nextFrame.setVisible(true);
+        }));
 
+        updatePanel.add(buttonUpdate);
+      }
+
+      orderElement.add(updatePanel);
       listPanel.add(orderElement);
     }
 

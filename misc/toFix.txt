@@ -1,5 +1,5 @@
 --1. dla restauracji - gdy lista zamówień jest pusta - za pierwszym razem wyskakuje "nieznany błąd", za kolejnymi już okienko "brak zamówień"
-2. czy check constraint jest tylko przy cenie? bo dla tego błędu zrobiłam wiadomość o cenie i nwm czy nie przypał, czy nie pojawi się gdzieś indziej
+--2. czy check constraint jest tylko przy cenie? bo dla tego błędu zrobiłam wiadomość o cenie i nwm czy nie przypał, czy nie pojawi się gdzieś indziej
 --3. czy kategoria w daniu może być pusta czy danie musi mieć kategorię
 --4. gdy jest tylko jedna kategoria to jest automatycznie wybierana - tak ma być? to w sumie nawiązuje do pytania 3.
 --5. cena w daniu - brak sprawdzania czy to liczba 

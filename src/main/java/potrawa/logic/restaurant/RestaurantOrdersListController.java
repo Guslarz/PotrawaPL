@@ -18,8 +18,7 @@ public class RestaurantOrdersListController {
   public List<Order> getOrders() {
     try {
       String query = Order.query +
-              "WHERE z.identyfikator_restauracji = USER " +
-              "AND z.status = 'REALIZACJA'";
+              "WHERE z.identyfikator_restauracji = USER ";
 
       Statement statement = connection_.createStatement();
       ResultSet resultSet = statement.executeQuery(query);

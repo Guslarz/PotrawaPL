@@ -9,6 +9,7 @@ import potrawa.logic.client.ClientRestaurantController;
 import javax.swing.*;
 import java.awt.event.*;
 import java.sql.Connection;
+import java.util.List;
 import java.util.Map;
 
 public class ClientRestaurantFrame extends JFrame {
@@ -18,6 +19,8 @@ public class ClientRestaurantFrame extends JFrame {
   private JLabel labelRestaurantName;
   private JPanel dishesPanel;
   private JPanel orderPanel;
+  private JComboBox comboBox1;
+  private JButton buttonCategory;
 
   private final JFrame parentFrame_;
   private final ClientRestaurantController controller_;
@@ -27,8 +30,10 @@ public class ClientRestaurantFrame extends JFrame {
     parentFrame_ = parentFrame;
     controller_ = new ClientRestaurantController(connection, restaurant.getId());
 
+    setupCategories();
+
     labelRestaurantName.setText(restaurant.getName());
-    dishesPanel.add(new DishesListElement(controller_));
+    dishesPanel.add(new DishesListElement(controller_, (String)comboBox1.getSelectedItem()));
     orderPanel.add(new OrderDishesElement(controller_));
 
     setContentPane(contentPane);
@@ -36,6 +41,8 @@ public class ClientRestaurantFrame extends JFrame {
     setResizable(false);
     pack();
     setLocationRelativeTo(null);
+
+    buttonCategory.addActionListener(e -> onCategory());
 
     buttonOK.addActionListener(e -> onOK());
 
@@ -51,6 +58,27 @@ public class ClientRestaurantFrame extends JFrame {
     contentPane.registerKeyboardAction(e -> onCancel(),
         KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0),
         JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
+  }
+
+  private void setupCategories() {
+    List<String> categories = controller_.getCategories();
+    if (categories == null || categories.size() == 0) {
+      comboBox1.setEnabled(false);
+    } else {
+      comboBox1.addItem("wszystkie");
+      for (String category : categories) {
+        comboBox1.addItem(category);
+      }
+      comboBox1.setSelectedIndex(0);
+    }
+  }
+
+  private void onCategory() {
+    dishesPanel.removeAll();
+    dishesPanel.add(new DishesListElement(controller_, (String)comboBox1.getSelectedItem()));
+
+    pack();
+    setLocationRelativeTo(null);
   }
 
   private void onOK() {
