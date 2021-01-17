@@ -158,7 +158,7 @@ public class RestaurantDishFrame extends JFrame {
 
     try {
       double price = Double.valueOf(textFieldPrice.getText());
-      Pattern regEx = Pattern.compile("\\d{1,3}[./]?\\d{0,2}");
+      Pattern regEx = Pattern.compile("\\d{1,3}(?:.\\d{0,2})?");
       Matcher matcher = regEx.matcher(textFieldPrice.getText());
 
       if (!matcher.matches()) {
@@ -192,7 +192,7 @@ public class RestaurantDishFrame extends JFrame {
 
     try {
       double price = Double.valueOf(textFieldPrice.getText());
-      Pattern regEx = Pattern.compile("\\d{1,3}[./]?\\d{0,2}");
+      Pattern regEx = Pattern.compile("\\d{1,3}(?:.\\d{0,2})?");
       Matcher matcher = regEx.matcher(textFieldPrice.getText());
 
       if (!matcher.matches()) {
