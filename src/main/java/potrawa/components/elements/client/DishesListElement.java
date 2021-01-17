@@ -6,15 +6,20 @@ import potrawa.logic.client.ClientRestaurantController;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
-import java.util.function.Function;
 
 public class DishesListElement extends JPanel {
 
   private final ClientRestaurantController controller_;
   private final String category_;
+
+  public DishesListElement(ClientRestaurantController controller) {
+    controller_ = controller;
+    category_ = "all";
+
+    loadDishes();
+  }
 
   public DishesListElement(ClientRestaurantController controller, String category) {
     controller_ = controller;
@@ -26,7 +31,7 @@ public class DishesListElement extends JPanel {
   private void loadDishes() {
     List<Dish> dishes;
 
-    if(category_.equals("wszystkie")) {
+    if(category_.equals("all")) {
       dishes = controller_.getDishes();
     } else {
       dishes = controller_.getDishes(category_);
