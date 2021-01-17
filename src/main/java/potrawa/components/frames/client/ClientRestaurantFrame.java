@@ -2,7 +2,6 @@ package potrawa.components.frames.client;
 
 import potrawa.components.elements.client.DishesListElement;
 import potrawa.components.elements.client.OrderDishesElement;
-import potrawa.data.Dish;
 import potrawa.data.Restaurant;
 import potrawa.logic.client.ClientRestaurantController;
 
@@ -10,7 +9,6 @@ import javax.swing.*;
 import java.awt.event.*;
 import java.sql.Connection;
 import java.util.List;
-import java.util.Map;
 
 public class ClientRestaurantFrame extends JFrame {
   private JPanel contentPane;
@@ -21,6 +19,7 @@ public class ClientRestaurantFrame extends JFrame {
   private JPanel orderPanel;
   private JComboBox comboBox1;
   private JButton buttonCategory;
+  private JButton buttonAllCategories;
 
   private final JFrame parentFrame_;
   private final ClientRestaurantController controller_;
@@ -33,7 +32,7 @@ public class ClientRestaurantFrame extends JFrame {
     setupCategories();
 
     labelRestaurantName.setText(restaurant.getName());
-    dishesPanel.add(new DishesListElement(controller_, (String)comboBox1.getSelectedItem()));
+    dishesPanel.add(new DishesListElement(controller_));
     orderPanel.add(new OrderDishesElement(controller_));
 
     setContentPane(contentPane);
@@ -43,6 +42,8 @@ public class ClientRestaurantFrame extends JFrame {
     setLocationRelativeTo(null);
 
     buttonCategory.addActionListener(e -> onCategory());
+
+    buttonAllCategories.addActionListener(e -> onAllCategories());
 
     buttonOK.addActionListener(e -> onOK());
 
@@ -65,7 +66,6 @@ public class ClientRestaurantFrame extends JFrame {
     if (categories == null || categories.size() == 0) {
       comboBox1.setEnabled(false);
     } else {
-      comboBox1.addItem("wszystkie");
       for (String category : categories) {
         comboBox1.addItem(category);
       }
@@ -76,6 +76,14 @@ public class ClientRestaurantFrame extends JFrame {
   private void onCategory() {
     dishesPanel.removeAll();
     dishesPanel.add(new DishesListElement(controller_, (String)comboBox1.getSelectedItem()));
+
+    pack();
+    setLocationRelativeTo(null);
+  }
+
+  private void onAllCategories() {
+    dishesPanel.removeAll();
+    dishesPanel.add(new DishesListElement(controller_));
 
     pack();
     setLocationRelativeTo(null);
