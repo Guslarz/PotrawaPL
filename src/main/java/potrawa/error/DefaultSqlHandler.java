@@ -29,7 +29,10 @@ public class DefaultSqlHandler {
         msg = "Wpisane dane są za długie";
         break;
       case 2290:
-        msg = "Cena musi być większa od 0!";
+        msg = "Cena musi być większa od 0";
+        break;
+      case 2291:
+        msg = "Wprowadzono nieprawidłowo pole";
         break;
       default:
         msg = "Nieznany błąd";

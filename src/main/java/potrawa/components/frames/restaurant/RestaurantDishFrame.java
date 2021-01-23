@@ -1,10 +1,10 @@
 package potrawa.components.frames.restaurant;
 
+import potrawa.components.filters.FilterComboBox;
 import potrawa.data.Dish;
 import potrawa.logic.restaurant.RestaurantDishController;
 
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.*;
 import java.sql.Connection;
 import java.util.ArrayList;
@@ -19,8 +19,9 @@ public class RestaurantDishFrame extends JFrame {
   private JTextArea textAreaDescription;
   private JTextField textFieldPrice;
   private JTextField textFieldName;
-  private JComboBox comboBox1;
-  private JPanel allergensPanel;
+  private FilterComboBox comboBox1;
+  private JPanel panelAllergens;
+  private JPanel panelCategories;
 
   private final JFrame parentFrame_;
   private final RestaurantDishController controller_;
@@ -91,6 +92,8 @@ public class RestaurantDishFrame extends JFrame {
 
   private void setupCategories() {
     List<String> categories = controller_.getCategories();
+    comboBox1 = new FilterComboBox(categories);
+
     if (categories == null || categories.size() == 0) {
       comboBox1.setEnabled(false);
     } else {
@@ -99,6 +102,7 @@ public class RestaurantDishFrame extends JFrame {
       }
       comboBox1.setSelectedIndex(0);
     }
+    panelCategories.add(comboBox1);
   }
 
   private void setupAllergens() {
@@ -107,13 +111,13 @@ public class RestaurantDishFrame extends JFrame {
     if (allergens == null || allergens.size() == 0) {
       JLabel label = new JLabel();
       label.setText("brak alergenów w bazie");
-      allergensPanel.add(label);
+      panelAllergens.add(label);
     } else {
       for (String allergen : allergens) {
         JCheckBox checkBox = new JCheckBox(allergen);
         checkBox.setName(allergen);
         checkboxes_.add(checkBox);
-        allergensPanel.add(checkBox);
+        panelAllergens.add(checkBox);
       }
     }
   }
@@ -125,7 +129,7 @@ public class RestaurantDishFrame extends JFrame {
     if (allergens == null || allergens.size() == 0) {
       JLabel label = new JLabel();
       label.setText("brak alergenów w bazie");
-      allergensPanel.add(label);
+      panelAllergens.add(label);
     } else {
       for (String allergen : allergens) {
         JCheckBox checkBox = new JCheckBox(allergen);
@@ -134,7 +138,7 @@ public class RestaurantDishFrame extends JFrame {
           checkBox.setSelected(dishAllergens.contains(allergen));
         }
         checkboxes_.add(checkBox);
-        allergensPanel.add(checkBox);
+        panelAllergens.add(checkBox);
       }
     }
   }
@@ -216,7 +220,9 @@ public class RestaurantDishFrame extends JFrame {
   }
 
   private void createUIComponents() {
-    allergensPanel = new JPanel();
-    allergensPanel.setLayout(new BoxLayout(allergensPanel, BoxLayout.Y_AXIS));
+    panelCategories = new JPanel();
+    panelCategories.setLayout(new BoxLayout(panelCategories, BoxLayout.Y_AXIS));
+    panelAllergens = new JPanel();
+    panelAllergens.setLayout(new BoxLayout(panelAllergens, BoxLayout.Y_AXIS));
   }
 }

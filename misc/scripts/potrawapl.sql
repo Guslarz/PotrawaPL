@@ -224,7 +224,7 @@ ON dania(cena);
 
 -- CONSTANT INSERTS
 INSERT INTO metody_platnosci(nazwa)
-VALUES ('GOT�WKA PRZY ODBIORZE');
+VALUES ('GOTÓWKA PRZY ODBIORZE');
 INSERT INTO metody_platnosci(nazwa)
 VALUES ('KARTA PRZY ODBIORZE');
 INSERT INTO metody_platnosci(nazwa)

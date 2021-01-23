@@ -2,6 +2,7 @@ package potrawa.components.frames.client;
 
 import potrawa.components.elements.client.DishesListElement;
 import potrawa.components.elements.client.OrderDishesElement;
+import potrawa.components.filters.FilterComboBox;
 import potrawa.data.Restaurant;
 import potrawa.logic.client.ClientRestaurantController;
 
@@ -17,9 +18,10 @@ public class ClientRestaurantFrame extends JFrame {
   private JLabel labelRestaurantName;
   private JPanel dishesPanel;
   private JPanel orderPanel;
-  private JComboBox comboBox1;
+  private FilterComboBox comboBox1;
   private JButton buttonCategory;
   private JButton buttonAllCategories;
+  private JPanel categoryPanel;
 
   private final JFrame parentFrame_;
   private final ClientRestaurantController controller_;
@@ -57,12 +59,14 @@ public class ClientRestaurantFrame extends JFrame {
     });
 
     contentPane.registerKeyboardAction(e -> onCancel(),
-        KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0),
-        JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
+            KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0),
+            JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
   }
 
   private void setupCategories() {
     List<String> categories = controller_.getCategories();
+    comboBox1 = new FilterComboBox(categories);
+
     if (categories == null || categories.size() == 0) {
       comboBox1.setEnabled(false);
     } else {
@@ -71,11 +75,12 @@ public class ClientRestaurantFrame extends JFrame {
       }
       comboBox1.setSelectedIndex(0);
     }
+    categoryPanel.add(comboBox1);
   }
 
   private void onCategory() {
     dishesPanel.removeAll();
-    dishesPanel.add(new DishesListElement(controller_, (String)comboBox1.getSelectedItem()));
+    dishesPanel.add(new DishesListElement(controller_, (String) comboBox1.getSelectedItem()));
 
     pack();
     setLocationRelativeTo(null);
@@ -92,7 +97,7 @@ public class ClientRestaurantFrame extends JFrame {
   private void onOK() {
     if (controller_.getDishesCounter().size() == 0) {
       JOptionPane.showMessageDialog(null, "Brak dań w zamówieniu",
-          "Błąd", JOptionPane.ERROR_MESSAGE);
+              "Błąd", JOptionPane.ERROR_MESSAGE);
     } else {
       JFrame nextFrame = new ClientOrderFrame(this, controller_);
       setVisible(false);
@@ -108,5 +113,6 @@ public class ClientRestaurantFrame extends JFrame {
   private void createUIComponents() {
     dishesPanel = new JPanel();
     orderPanel = new JPanel();
+    categoryPanel = new JPanel();
   }
 }
