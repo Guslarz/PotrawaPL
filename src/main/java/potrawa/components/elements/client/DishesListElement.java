@@ -46,7 +46,7 @@ public class DishesListElement extends JPanel {
 
   private void addPlaceholder() {
     JLabel label = new JLabel("Brak dań do wyświetlenia");
-    label.setPreferredSize(new Dimension(500, 500));
+    label.setPreferredSize(new Dimension(500, 400));
     add(label);
   }
 
@@ -81,11 +81,11 @@ public class DishesListElement extends JPanel {
       listPanel.add(dishElement);
     }
     listPanel.add(new Box.Filler(new Dimension(0, 0),
-        new Dimension(0, 500),
-        new Dimension(0, 500)));
+        new Dimension(0, 400),
+        new Dimension(0, 400)));
 
     JScrollPane scrollPane = new JScrollPane(listPanel);
-    scrollPane.setPreferredSize(new Dimension(500, 500));
+    scrollPane.setPreferredSize(new Dimension(500, 400));
     add(scrollPane);
   }
 }
