@@ -20,7 +20,7 @@ public class FilterComboBox extends JComboBox {
     });
   }
 
-  public void comboFilter(String enteredText) {
+  private void comboFilter(String enteredText) {
     if (!this.isPopupVisible()) {
       this.showPopup();
     }
@@ -35,8 +35,10 @@ public class FilterComboBox extends JComboBox {
     if (filterArray.size() > 0) {
       DefaultComboBoxModel model = (DefaultComboBoxModel) this.getModel();
       model.removeAllElements();
-      for (String s : filterArray)
+
+      for (String s : filterArray) {
         model.addElement(s);
+      }
 
       JTextField textField = (JTextField) this.getEditor().getEditorComponent();
       textField.setText(enteredText);

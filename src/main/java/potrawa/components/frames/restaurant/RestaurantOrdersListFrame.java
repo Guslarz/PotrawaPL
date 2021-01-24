@@ -14,6 +14,8 @@ public class RestaurantOrdersListFrame extends JFrame {
   private JPanel contentPane;
   private JButton buttonCancel;
   private JPanel mainPanel;
+  private JButton buttonToPrepare;
+  private JButton buttonPrepared;
 
   private final JFrame parentFrame_;
   private final RestaurantOrdersListController controller_;
@@ -24,12 +26,16 @@ public class RestaurantOrdersListFrame extends JFrame {
     controller_ = new RestaurantOrdersListController(connection);
     connection_ = connection;
 
-    loadOrders();
+    loadOrdersToPrepare();
 
     setContentPane(contentPane);
     pack();
     setResizable(false);
     setLocationRelativeTo(null);
+
+    buttonToPrepare.addActionListener(e -> loadOrdersToPrepare());
+
+    buttonPrepared.addActionListener(e -> loadPreparedOrders());
 
     buttonCancel.addActionListener(e -> onCancel());
 
@@ -44,15 +50,32 @@ public class RestaurantOrdersListFrame extends JFrame {
             KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
   }
 
-  private void loadOrders() {
+  private void loadOrdersToPrepare() {
     mainPanel.removeAll();
-    List<Order> orders = controller_.getOrders();
+    List<Order> orders = controller_.getOrdersToPrepare();
 
     if (orders == null || orders.size() == 0) {
       addPlaceholder();
     } else {
       addList(orders);
     }
+
+    pack();
+    setLocationRelativeTo(null);
+  }
+
+  private void loadPreparedOrders() {
+    mainPanel.removeAll();
+    List<Order> orders = controller_.getPreparedOrders();
+
+    if (orders == null || orders.size() == 0) {
+      addPlaceholder();
+    } else {
+      addList(orders);
+    }
+
+    pack();
+    setLocationRelativeTo(null);
   }
 
   private void addPlaceholder() {
@@ -104,7 +127,7 @@ public class RestaurantOrdersListFrame extends JFrame {
   @Override
   public void setVisible(boolean b) {
     if (b) {
-      loadOrders();
+      loadOrdersToPrepare();
     }
 
     super.setVisible(b);
